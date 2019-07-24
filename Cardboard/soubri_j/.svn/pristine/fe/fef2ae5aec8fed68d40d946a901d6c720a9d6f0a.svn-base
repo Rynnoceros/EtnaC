@@ -1,0 +1,71 @@
+/*                                                                                                               
+** ETNA PROJECT, 19/10/2018 by soubri_j                                                                          
+** inventory.h                                                                                                
+** File description: 
+**      File containing all functions to manage an inventory for
+**      Cardboard Pulley Training.
+*/
+#include "inventory.h"
+
+/*
+    Function used to create an inventory
+*/
+inventory_t *new_inventory(){
+    inventory_t *inventory = NULL;
+
+    inventory = malloc(sizeof(*inventory));
+    return inventory;   
+}
+
+/*
+    Function that clear and free an inventory
+    Params :
+        inventory : Inventory to clear
+*/
+void clear_inventory(inventory_t *inventory)
+{
+    if (inventory != NULL) {
+        while (inventory->items != NULL) {
+            inventory->items = inventory->items->next;
+            free(inventory->items);
+        }
+        free(inventory);
+    }
+    my_putstr("Inventory cleared\n");
+}
+
+/*
+    Function that add an item to the inventory.
+    Params : 
+        inv : Inventory where to add the item
+        item : The item to add in the inventory
+*/
+void add_to_inventory(inventory_t *inv, item_t *item)
+{
+    if (inv != NULL && item != NULL) {
+        if (inv->items == NULL) {
+            inv->items = malloc(sizeof(*(inv->items)));
+        }
+        if (inv->items != NULL) {
+            item->previous = inv->items->previous;
+            inv->items->previous->next = item;
+            item->next = inv->items;
+            inv->items->previous = item;
+            inv->items = item;
+        }
+    }
+}
+
+/*
+    Function that removes from the inventory based on the id
+    of the item and returns the removed item if found, NULL otherwise.
+    Params : 
+        inv : Inventory where to remove the item
+        id : Id of the item to remove
+    Returns :
+        The item removed or NULL if not found
+*/
+item_t *remove_from_inventory(inventory_t *inv, int id)
+{
+    
+}

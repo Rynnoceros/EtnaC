@@ -1,0 +1,3 @@
+Merge, malloc et realloc fonctionnent correctement.
+Le calloc semlbe fonctionner dans certains cas mais pas tous.
+Il fonctionne pour la commande ls mais pas la commande make...

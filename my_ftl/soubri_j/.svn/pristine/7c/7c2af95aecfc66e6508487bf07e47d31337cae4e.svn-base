@@ -1,0 +1,20 @@
+/*
+** ETNA PROJECT, 13/11/2018 by soubri_j
+** game_loop.c
+** File description: 
+**      This file contains all methods to manage game loop.
+*/
+
+#include "ftl.h"
+
+static const user_action_t user_actions[] = {
+    {"attack", NULL},
+    {"detect", NULL},
+    {"jump", NULL},
+    {"getbonus", get_bonus},
+    {"repair_system", system_repair},
+    {"control_system", system_control},
+    {"stat" , display_stats },
+    {NULL, NULL}
+};
+

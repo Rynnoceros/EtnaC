@@ -1,0 +1,44 @@
+/*
+** ETNA PROJECT, 18/10/2018 by soubri_j
+** my_compare_strings.c
+** File description:
+**      Functions that compare two strings.
+*/
+
+int compare_strings(char *s1, char *s2)
+{
+    int compare_result = 0;
+    unsigned int cpt = 0;
+
+    while (s1[cpt] != '\0' && s2[cpt] != '\0' && s1[cpt] == s2[cpt]) {
+        ++cpt;
+    }
+    if (s1[cpt] == s2[cpt]) {
+        compare_result = 0;
+    } else if (s1[cpt] == '\0' || s1[cpt] < s2[cpt]) {
+        compare_result = -1;
+    } else if (s2[cpt] == '\0' || s1[cpt] > s2[cpt]) {
+        compare_result = 1;
+    }
+    return compare_result;
+}
+
+/* Function that compare the n first characters of 2 strings */
+int compare_strings_n(char *s1, char *s2, int n)
+{
+    int compare_result = 0;
+    int cpt = 0;
+
+    while (s1[cpt] != '\0' && s2[cpt] != '\0' && 
+           s1[cpt] == s2[cpt] && cpt < n) {
+        ++cpt;
+    }
+    if ((s1[cpt] == '\0' && s2[cpt] == '\0' ) || cpt >= n) {
+        compare_result = 0;
+    } else if (s1[cpt] == '\0' || s1[cpt] < s2[cpt]) {
+        compare_result = -1;
+    } else if (s2[cpt] == '\0' || s1[cpt] > s2[cpt]) {
+        compare_result = 1;
+    }
+    return compare_result;
+}

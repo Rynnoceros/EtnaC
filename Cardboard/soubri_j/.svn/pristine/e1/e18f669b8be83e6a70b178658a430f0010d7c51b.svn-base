@@ -1,0 +1,19 @@
+/*
+** ETNA PROJECT, 08/10/2018 by soubri_j
+** my_is_even
+** File description:
+**      Contains all libmy prototypes declaration
+*/
+
+#ifndef __LIBMY_H__
+# define __LIBMY_H__
+#include <stdlib.h>
+#include <unistd.h>
+
+void my_putchar(char c);
+void my_putstr(char *str);
+int my_strlen(char *str);
+int  my_getnbr(char *str);
+void my_putnbr(int nb);
+char getchar_alphabet(int n, int base, char *alphabet);
+#endif

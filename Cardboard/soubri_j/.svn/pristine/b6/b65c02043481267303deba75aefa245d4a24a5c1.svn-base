@@ -1,0 +1,26 @@
+/*                                                                                                               
+** ETNA PROJECT, 19/10/2018 by soubri_j                                                                          
+** inventory.h                                                                                                
+** File description: 
+**      File containing all functions to manage an inventory for
+**      Cardboard Pulley Training.
+*/
+#include "inventory.h"
+
+/*
+    Function used to create an inventory
+*/
+inventory_t *new_inventory(){
+    inventory_t *inventory = NULL;
+
+    inventory = malloc(sizeof(*inventory));
+    return inventory;   
+}
+
+/*
+    Function that clear and free an inventory
+*/
+void clear_inventory(inventory_t *)
+{
+
+}

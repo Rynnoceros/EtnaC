@@ -1,0 +1,67 @@
+/*
+** ETNA PROJECT, 12/11/2018 by soubri_j
+** ftl.h
+** File description: 
+**      This file contains all structure definitions, and functions header
+**      for my_ftl.
+*/
+
+#ifndef __FTL_H__
+# define __FTL_H__
+#include <stdlib.h>
+
+/* Structure definitions */
+typedef struct weapon_s {
+    char *system_state;
+    int damage;
+} weapon_t;
+
+typedef struct ftl_drive_s {
+    char *system_state;
+    int energy;
+} ftl_drive_t;
+
+typedef struct navigation_tools_s {
+    char *system_state;
+    int sector;
+    int evade;
+} navigation_tools_t;
+
+typedef struct freight_s {
+    char *item;
+    struct freight_s *next;
+    struct freight_s *prev;
+} freight_t;
+
+typedef struct container_s {
+    freight_t *first;
+    freight_t *last;
+    int nb_elem;
+} container_t;
+
+typedef struct ship_s {
+    int hull;
+    weapon_t *weapon;
+    ftl_drive_t *engine;
+    navigation_tools_t *nav_tools;
+    container_t *container;
+} ship_t;
+
+/* Functions headers */
+void my_putstr_color(const char *color, const char *str);
+char *my_readline(void);
+char *my_strdup(const char *str);
+int my_strcmp(const char *s1, const char *s2);
+ship_t* create_ship();
+int add_weapon_to_ship(ship_t *ship);
+int add_ftl_drive_to_ship(ship_t *ship);
+int add_navigation_tools_to_ship(ship_t *ship);
+int add_container_to_ship(ship_t *ship);
+void add_freight_to_container(ship_t *ship, freight_t *freight);
+void del_freight_from_container(ship_t *ship, freight_t *freight);
+void get_bonus(ship_t *ship);
+void ftl_drive_system_check(ship_t *ship);
+void navigation_tools_system_check(ship_t *ship);
+void weapon_system_check(ship_t *ship);
+void system_control(ship_t *ship);
+#endif

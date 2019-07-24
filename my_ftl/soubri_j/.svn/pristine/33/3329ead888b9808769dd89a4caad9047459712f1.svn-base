@@ -1,0 +1,73 @@
+/*
+** ETNA PROJECT, 12/11/2018 by soubri_j
+** main.c
+** File description: 
+**      This file contains my_ftl program loop.
+*/
+
+#include "ftl.h"
+#include <time.h>
+
+int main(void) {
+    /*
+    ship_t *my_ship = NULL;
+    
+    my_ship = create_ship();
+    add_weapon_to_ship(my_ship);
+    add_weapon_to_ship(NULL);
+    add_ftl_drive_to_ship(my_ship);
+    add_ftl_drive_to_ship(NULL);
+    add_navigation_tools_to_ship(my_ship);
+    add_navigation_tools_to_ship(NULL);
+    add_container_to_ship(my_ship);
+    add_container_to_ship(NULL);
+
+    freight_t *f1 = malloc(sizeof(*f1));
+    f1->item = my_strdup("attackbonus");
+    freight_t *f2 = malloc(sizeof(*f1));;
+    f2->item = my_strdup("evadebonus");
+    freight_t *f3 = malloc(sizeof(*f1));;
+    f3->item = my_strdup("energy");
+    freight_t *f4 = malloc(sizeof(*f1));;
+    f4->item = my_strdup("scrap");
+    add_freight_to_container(my_ship, f1);
+    add_freight_to_container(my_ship, f2);
+    add_freight_to_container(my_ship, f3);
+    add_freight_to_container(my_ship, f4);
+    add_freight_to_container(my_ship, NULL);
+
+    printf("nb items : %d\n", my_ship->container->nb_elem);
+    freight_t *ptr = my_ship->container->last;
+    printf("first : %s\n", my_ship->container->first->item);
+    for (int i = 0; i < 8; ++i) {
+        printf("[%d] %s\n", i, ptr->item);
+        ptr = ptr->prev;
+    }
+    printf("last : %s\n", my_ship->container->last->item);
+    printf("damage : %d\n", my_ship->weapon->damage);
+    printf("evade : %d\n", my_ship->nav_tools->evade);
+    printf("energy : %d\n", my_ship->engine->energy);
+
+    get_bonus(my_ship);
+    printf("nb items : %d\n", my_ship->container->nb_elem);
+    printf("damage : %d\n", my_ship->weapon->damage);
+    printf("evade : %d\n", my_ship->nav_tools->evade);
+    printf("energy : %d\n", my_ship->engine->energy);
+
+    get_bonus(NULL);
+    system_control(my_ship);
+    system_control(NULL);
+
+    ftl_drive_system_repair(my_ship);
+    navigation_tools_system_repair(my_ship);
+    weapon_system_repair(my_ship);
+
+    system_repair(my_ship);
+    system_repair(my_ship);
+    system_repair(my_ship);
+    system_repair(my_ship);
+    system_repair(my_ship);
+    */
+   srandom(time(NULL));
+   game_loop();
+}

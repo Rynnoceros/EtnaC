@@ -1,0 +1,95 @@
+/*                                                                                                               
+** ETNA PROJECT, 19/10/2018 by soubri_j                                                                          
+** inventory.h                                                                                                
+** File description: 
+**      File containing all functions to manage an inventory for
+**      Cardboard Pulley Training.
+*/
+#include "inventory.h"
+
+/*
+    Function used to create an inventory
+*/
+inventory_t *new_inventory(){
+    inventory_t *inventory = NULL;
+
+    inventory = malloc(sizeof(*inventory));
+    return inventory;   
+}
+
+/*
+    Function that clear and free an inventory
+    Params :
+        inventory : Inventory to clear
+*/
+void clear_inventory(inventory_t *inventory)
+{
+    if (inventory != NULL) {
+        while (inventory->items != NULL) {
+            inventory->items = inventory->items->next;
+            free(inventory->items);
+        }
+        free(inventory);
+    }
+    my_putstr("Inventory cleared\n");
+}
+
+/*
+    Function that add an item to the inventory.
+    Params : 
+        inv : Inventory where to add the item
+        item : The item to add in the inventory
+*/
+void add_to_inventory(inventory_t *inv, item_t *item)
+{
+    if (inv != NULL && item != NULL) {
+        if (inv->items == NULL) {
+            inv->items = malloc(sizeof(*(inv->items)));
+        }
+        if (inv->items != NULL) {
+            item->previous = inv->items->previous;
+            inv->items->previous->next = item;
+            item->next = inv->items;
+            inv->items->previous = item;
+            inv->items = item;
+        }
+        inv->nb_items += 1;
+    }
+}
+
+/*
+    Function that removes from the inventory based on the id
+    of the item and returns the removed item if found, NULL otherwise.
+    Params : 
+        inv : Inventory where to remove the item
+        id : Id of the item to remove
+    Returns :
+        The item removed or NULL if not found
+*/
+item_t *remove_from_inventory(inventory_t *inv, int id)
+{
+    item_t *item_to_return = NULL;
+    
+    if (inv != NULL) {
+        for (int i = 0; i < inv->nb_items; ++i) {
+            if (inv->items->id == id) {
+                item_to_return = inv->items;
+                if (inv->nb_items <= 1) {
+                    inv->items = NULL;
+                } else if (inv->nb_items == 2) {
+                    inv->items->next->next = NULL;
+                    inv->items->previous->previous = NULL;
+                } else {
+                    inv->items->next->previous = inv->items->previous;
+                    inv->items->previous->next = inv->items->next;
+                }
+                item_to_return->next = NULL;
+                item_to_return->previous = NULL;
+                inv->nb_items -= 1;
+            } else {
+                inv->items = inv->items->next;
+            }
+        }
+    }
+    return item_to_return;
+}

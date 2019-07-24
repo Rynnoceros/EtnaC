@@ -1,0 +1,16 @@
+div.content {
+    background-image: url("./resources/background.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height:100%;
+}
+
+div.page {
+    display: none;
+}
+
+div.page:target {
+    display: block;
+}

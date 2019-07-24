@@ -1,0 +1,36 @@
+#                                                                                                               
+# ETNA PROJECT, 13/10/2018 by soubri_j                                                                          
+# Makefile                                                                                                
+# File description:                                                                                             
+#      Makefile for aff_up binary
+#
+CFLAGS			= -Wall -Wextra -Werror -std=c99
+
+CC				= gcc
+
+RM				= rm -f
+
+PROGRAM_NAME	= aff_up
+
+SRC				= main.c \
+				  my_capitalize.c \
+				  my_putchar.c \
+				  my_putstr.c \
+				  my_strlen.c
+
+OBJ				= $(SRC:.c=.o)
+
+all: $(PROGRAM_NAME)
+
+$(PROGRAM_NAME) : $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(PROGRAM_NAME)
+
+clean:
+	$(RM) $(OBJ)
+
+fclean: clean
+	$(RM) $(OBJ)
+
+re: fclean all
+
+.PHONY: all $(PROGRAM_NAME) clean fclean re

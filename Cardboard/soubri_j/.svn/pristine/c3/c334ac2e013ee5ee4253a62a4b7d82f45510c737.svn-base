@@ -1,0 +1,56 @@
+/*
+** ETNA PROJECT, 18/10/2018 by soubri_j
+** not_rp1.h
+** File description:
+**      Header containing all functions and typedef for Cardboard
+**      Pulley Training.
+*/
+#ifndef __NOT_RP1_H__
+# define __NOT_RP1_H__
+
+#include "libmy.h"
+/**** Variables ****/
+#define MOVEMENT_SPEED 1;
+#define MOVEMENT_DIRECTION ((char *[]) { "up", "down", "left", "right" })
+#define ORIENTATION ((char *[]) { "north", "east", "south", "west" })
+
+/**** Structures and enumerations ****/
+typedef enum {
+    E_PLAYER,
+    E_GUARD,
+    E_CAMERA,
+    E_DOG
+} character_type_e;
+
+typedef enum {
+    E_FORWARD,
+    E_BACKWARD,
+    E_LEFT,
+    E_RIGHT
+} direction_e;
+
+typedef enum {
+    E_NORTH = 0,
+    E_EAST = 90,
+    E_SOUTH = 180,
+    E_WEST = 270
+} cardinal_point_e;
+
+typedef enum {
+    E_X = 0,
+    E_Y = 1
+} coord_e;
+
+typedef struct {
+    int id;
+    character_type_e type;
+    cardinal_point_e azimut;
+    int coord[2];
+} character_t;
+
+/**** Functions declarations ****/
+int character_move(character_t *target, direction_e dir);
+int character_look(character_t *target, cardinal_point_e cardinal_point);
+void print_move(int id, direction_e dir);
+void print_character_orientation(int id, cardinal_point_e cardinal_point);
+#endif // !__NOT_RP1_H__

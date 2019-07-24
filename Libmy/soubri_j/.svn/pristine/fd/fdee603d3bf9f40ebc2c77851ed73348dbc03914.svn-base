@@ -1,0 +1,10 @@
+/*                                                                                                               
+** ETNA PROJECT, 04/10/2018 by soubri_j                                                                          
+** my_strstr                                                                                                
+** File description:                                                                                             
+**      Function that finds the first occurrence of the to_find string
+**      in the str string. Your function will have to return the address 
+**      of this occurrence in the str string. If there is no occurrence, 
+**      a NULL pointer must be returned.
+*/
+char *my_strstr(char *str, char *to_find);

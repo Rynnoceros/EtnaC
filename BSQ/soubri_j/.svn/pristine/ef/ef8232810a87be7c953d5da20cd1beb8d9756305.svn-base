@@ -1,0 +1,175 @@
+/*
+** ETNA PROJECT, 12/10/2018 by soubri_j                                                                          
+** map_functions_bsq                                                                                                
+** File description:                                                                                             
+**      Contains methods used to manipulate maps.
+*/
+/* 
+    Function to read a map file
+    Params :
+        filename : file to read fullname
+        nb_lines : number of lines to read
+        ret : return status
+        error_message : variable to return an error message
+    Returns :
+        map read or NULL
+*/
+#include <stdlib.h>
+#include <stdio.h>
+#include "constants_bsq.h"
+#include "map_functions_bsq.h"
+#include "bonus/libmy.h"
+
+/*
+    Function to find the biggest square on the board
+    Params :
+        nb_lines : number of lines in the board
+        map : the board
+        error_message : variable to return an error message
+    Returns
+        ERROR_CODE if there was an error
+        OK_CODE if everything ok
+*/
+int find_biggest_square(int nb_lines, char **map, char *error_message)
+{
+    int line_size = my_strlen(map[0]);
+    int board_copy[nb_lines][line_size];
+    error_message = NULL;
+    
+    for (int i = 0; i < nb_lines; ++i) {
+        for (int j = 0; j < line_size; ++j) {
+            if (i > 0) { 
+                if (map[i][j] == '.') {
+                    board_copy[i][j] = board_copy[i - 1][j] + 1;
+                } else {
+                    board_copy[i][j] = 0;
+                }
+            } else {
+                if (map[i][j] == '.')
+                    board_copy[i][j] = 1;
+                else 
+                    board_copy[i][j] = 0;
+            }
+        }
+    }/* else {
+        error_message = my_strcpy(error_message, "Error reading map\n");
+        return ERROR_CODE;
+    }*/
+
+    for (int i = 0; i < nb_lines; ++i) {
+        for (int j = 0; j < line_size; ++j) {
+            my_putnbr(board_copy[i][j]);
+        }
+        my_putchar('\n');
+    }
+
+        int square_width = 0;
+    int current_width = 0;
+    int cpt = 0;
+    Coord bs_position;
+    bs_position.x = 0;
+    bs_position.y = 0;
+
+    display_map(nb_lines, map);
+    
+    for (int i = 0; i < nb_lines; ++i) {
+        cpt = 0;
+        for (int j = 0; j < line_size; ++j) {
+            if (board_copy[i][j] >= square_width) {
+                current_width = board_copy[i][j];
+                ++cpt;
+                if ((cpt >= current_width) && 
+                    (current_width > square_width || j + 1 < bs_position.y)) { 
+                    square_width = current_width;
+                    bs_position.x = i + 1;
+                    bs_position.y = j + 1;
+                }
+            } else {
+                cpt = 0;
+            }   
+        }
+    }
+
+    printf("Biggest square found : %d\n", square_width);
+    bs_position.x -= square_width;
+    bs_position.y -= square_width;
+
+    printf("coord x:%d, y:%d\n", bs_position.x, bs_position.y);
+    for (int i = bs_position.x; i < bs_position.x + square_width; ++i) {
+        for (int j = bs_position.y; j < bs_position.y + square_width; ++j) {
+            map[i][j] = 'x';
+        }
+    }
+    
+    return OK_CODE;
+    //return fill_biggest_square(nb_lines, line_size, map, &board_copy);
+}
+
+/*
+    Function to fill map with the biggest square
+    Params : 
+        nb_lines : map number lines
+        size : size of the line
+        map : the map to fill
+        board_copy : the board containing weight of squares
+    Returns :
+        ERROR_CODE if an error has occured
+        OK_CODE if everything is good
+*/
+int fill_biggest_square(int nb_lines, int size, char **map, int *board_copy)
+{
+    int square_width = 0;
+    int current_width = 0;
+    int cpt = 0;
+    Coord bs_position;
+    bs_position.x = 0;
+    bs_position.y = 0;
+
+    display_map(nb_lines, map);
+    
+    for (int i = 0; i < nb_lines; ++i) {
+        cpt = 0;
+        for (int j = 0; j < size; ++j) {
+            if (board_copy[i * nb_lines + j] >= square_width) {
+                current_width = board_copy[i * nb_lines + j];
+                ++cpt;
+                if ((cpt >= current_width) && 
+                    (current_width > square_width || j + 1 < bs_position.y)) { 
+                    square_width = current_width;
+                    bs_position.x = i + 1;
+                    bs_position.y = j + 1;
+                }
+            } else {
+                cpt = 0;
+            }   
+        }
+    }
+
+    printf("Biggest square found : %d\n", square_width);
+    bs_position.x -= square_width;
+    bs_position.y -= square_width;
+
+    printf("coord x:%d, y:%d\n", bs_position.x, bs_position.y);
+    for (int i = bs_position.x; i < bs_position.x + square_width; ++i) {
+        for (int j = bs_position.y; j < bs_position.y + square_width; ++j) {
+            map[i][j] = 'x';
+        }
+    }
+
+    display_map(nb_lines, map);
+
+    return OK_CODE;
+}
+
+/*
+    Function to display the content of a map
+*/
+void display_map(int nb_lines, char **map)
+{
+    if (map != NULL) {
+        for (int i = 0; i < nb_lines; ++i) {
+            my_putstr(map[i]);
+            my_putchar('\n');
+        }
+    }
+}

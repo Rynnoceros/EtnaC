@@ -1,0 +1,175 @@
+/*
+** ETNA PROJECT, 10/01/2019 by soubri_j/martin_m
+** malloc.c
+** File description: 
+**      This file contains malloc program.
+*/
+
+#include "malloc.h"
+
+block_t *first_block_in_memory = NULL;
+block_t *last_block_in_memory = NULL;
+void *lowest_address = NULL;
+
+/*
+    Method to allocate space in memory.
+    Parameters :
+        size : Size to allocate
+    Returns :
+        A block_t pointer to the allocated space if ok, NULL otherwise.
+*/
+block_t *allocate_memory_space(size_t size) {
+    block_t *to_return = NULL;
+    void *current_heap = NULL;
+
+    current_heap = sbrk(0);
+    if (first_block_in_memory == NULL) {
+        lowest_address = current_heap;
+        first_block_in_memory = current_heap;
+    }
+    if (sbrk(size + sizeof(*to_return)) != (void*)-1) {
+        to_return = current_heap;
+        to_return->size = size;
+        to_return->next = NULL;
+        to_return->available = 0;
+        if (last_block_in_memory != NULL) {
+            to_return->prev = last_block_in_memory;
+            last_block_in_memory->next = to_return;
+        } else {
+            if (to_return != first_block_in_memory) 
+            {
+                to_return->prev = first_block_in_memory;
+            }
+        }
+        to_return->magic = magic_number;
+        
+        last_block_in_memory = to_return;
+    }
+
+    printf("return allocate_memory_space %p\n", to_return);
+    return to_return;
+}
+
+/*
+    Method used to find an available block in the list of blocks
+    Parameters :
+        size : Minimum size of a block to find
+    Returns :
+        The block if was found, NULL otherwise.
+*/
+block_t *find_available_block(size_t size)
+{
+    block_t *ptr = NULL;
+    int block_found = 0;
+
+    if (first_block_in_memory != NULL) {
+        ptr = first_block_in_memory;
+        while (ptr != NULL && block_found == 0) {
+            if (ptr->available == 1 && ptr->size >= size) {
+                block_found = 1;
+            } else {
+                ptr = ptr->next;
+            }
+        }
+    }
+    
+    printf("return find_available_block %p\n", ptr);
+    return ptr;
+}
+
+/*
+    Malloc function. Allocate memory size.
+    If size is negative or equal to zero we allocate at least 1.
+    Parameter :
+        size : Size to allocate
+*/
+void *malloc(size_t size)
+{
+    block_t *block = NULL;
+    void *to_return = NULL;
+
+    if (first_block_in_memory == NULL) {
+        block = allocate_memory_space(size);
+    } else {
+        block = find_available_block(size);
+        if (block == NULL) {
+            block = allocate_memory_space(size);
+        } else {
+            block->available = 0;
+            block = split_block(block, size);
+        }
+    }
+    if (block != NULL) {
+        to_return = (block + 1);
+    }
+    return to_return;
+}
+
+/*
+    Free allocated memory.
+    Parameters :
+        ptr : The pointer to free
+*/
+void free(void *ptr)
+{
+    block_t *block = NULL;
+
+    if (ptr != NULL) {
+        if (lowest_address != NULL && ptr < lowest_address) {
+            printf("%s\n", error_pointer_too_low);
+        } else {
+            block = (((block_t*)ptr) - 1);
+            if (block->magic != magic_number) {
+                printf("%s\n", error_wrong_pointer);
+            } else {
+                block->available = 1; 
+            }
+        }
+    }
+}
+
+/*
+    Method to enlarge memory allocation. If there is enough space
+    it enlarge size of the allocated space, otherwise it allocates new
+    memory space and free the old one.
+    Parameters : 
+        ptr : The pointer to enlarge
+        size : New size
+    Returns :
+        A pointer to the allocated space.
+*/
+void *realloc(void *ptr, size_t size)
+{
+    block_t *block = NULL;
+    size_t old_size = 0;
+    void *to_return = ptr;
+
+    if (ptr != NULL) {
+        block = (((block_t *)ptr) - 1);
+        if (lowest_address != NULL && ptr < lowest_address) {
+            printf("%s\n", error_pointer_too_low);
+        } else if (block->magic != magic_number) {
+            printf("%s\n", error_wrong_pointer);
+        } else {
+            do {
+                old_size = block->size;
+                block = merge_block(block);
+                printf("merge block -> magic %d\n", block->magic);
+            } while (old_size != block->size);
+            if (block->size >= size) {
+                printf("size ok\n");
+                memcpy((block + 1), ptr, MIN(old_size, size));
+                block->available = 0;
+                block = split_block(block, size);
+                to_return = (block + 1);
+            } else {
+                printf("to low malloc\n");
+                to_return = malloc(size);
+                memcpy(to_return, ptr, MIN(old_size, size));
+                free(ptr);
+            }
+        }
+    }
+
+    return to_return;
+}

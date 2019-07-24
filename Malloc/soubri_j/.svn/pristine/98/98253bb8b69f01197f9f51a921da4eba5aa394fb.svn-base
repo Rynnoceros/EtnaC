@@ -1,0 +1,210 @@
+/*
+** ETNA PROJECT, 10/01/2019 by soubri_j/martin_m
+** malloc.c
+** File description: 
+**      This file contains malloc program.
+*/
+
+#include "malloc.h"
+
+block_t *first_block_in_memory = NULL;
+block_t *last_block_in_memory = NULL;
+void *lowest_address = NULL;
+
+/*
+    Method to allocate space in memory.
+    Parameters :
+        size : Size to allocate
+    Returns :
+        A block_t pointer to the allocated space if ok, NULL otherwise.
+*/
+block_t *allocate_memory_space(size_t size)
+{
+    block_t *to_return = NULL;
+    void *current_heap = NULL;
+
+    current_heap = sbrk(0);
+    //printf("allocate memory space\n");
+    if (first_block_in_memory == NULL) {
+        lowest_address = current_heap;
+        first_block_in_memory = current_heap;
+    }
+    if (sbrk(size + sizeof(*to_return)) != (void *)-1) {
+        to_return = current_heap;
+        to_return->size = size;
+        to_return->next = NULL;
+        to_return->available = 0;
+        if (last_block_in_memory != NULL) {
+            to_return->prev = last_block_in_memory;
+            last_block_in_memory->next = to_return;
+        } else {
+            if (to_return != first_block_in_memory) {
+                to_return->prev = first_block_in_memory;
+            }
+        }
+        to_return->magic = magic_number;
+
+        last_block_in_memory = to_return;
+    }
+
+    return to_return;
+}
+
+/*
+    Method used to find an available block in the list of blocks
+    Parameters :
+        size : Minimum size of a block to find
+    Returns :
+        The block if was found, NULL otherwise.
+*/
+block_t *find_available_block(size_t size)
+{
+    block_t *ptr = NULL;
+    int block_found = 0;
+
+    if (first_block_in_memory != NULL) {
+        ptr = first_block_in_memory;
+        while (ptr != NULL && block_found == 0) {
+            if (ptr->available == 1 && ptr->size >= size) {
+                block_found = 1;
+            } else {
+                ptr = ptr->next;
+            }
+        }
+    }
+
+    return ptr;
+}
+
+/*
+    Malloc function. Allocate memory size.
+    If size is negative or equal to zero we allocate at least 1.
+    Parameter :
+        size : Size to allocate
+*/
+void *malloc(size_t size)
+{
+    block_t *block = NULL;
+    void *to_return = NULL;
+
+    printf("malloc : %lu\n", size);
+    if (first_block_in_memory == NULL) {
+        printf("allocate memory\n");
+        block = allocate_memory_space(size);
+    } else {
+        block = find_available_block(size);
+        if (block == NULL) {
+            printf("allocate memory\n");
+            block = allocate_memory_space(size);
+        } else {
+            printf("find blocks size : %lu\n", block->size);
+            block->available = 0;
+            printf("available 0\n");
+            block = split_block(block, size, &last_block_in_memory);
+        }
+    }
+    if (block != NULL) {
+        to_return = (block + 1);
+    }
+    //printf("malloc return : %p\n", to_return);
+    return to_return;
+}
+
+/*
+    Free allocated memory.
+    Parameters :
+        ptr : The pointer to free
+*/
+void free(void *ptr)
+{
+    block_t *block = NULL;
+
+    printf("free\n");
+    if (check_pointer(ptr, lowest_address) == 1) {
+        block = ((block_t *)ptr - 1);
+        block->available = 1;
+    }
+}
+
+/*
+    Method to enlarge memory allocation. If there is enough space
+    it enlarge size of the allocated space, otherwise it allocates new
+    memory space and free the old one.
+    Parameters : 
+        ptr : The pointer to enlarge
+        size : New size
+    Returns :
+        A pointer to the allocated space.
+*/
+void *realloc(void *ptr, size_t size)
+{
+    block_t *block = NULL;
+    size_t size_to_copy  = 0;
+    void *to_return = ptr;
+
+    printf("realloc\n");
+    if (ptr != NULL) {
+        block = (((block_t *)ptr) - 1);
+        //printf("current block size : %lu\n", block->size);
+        if (check_pointer(ptr, lowest_address) == 1) {
+            size_to_copy = block->size;
+            //printf("size before merge : %lu\n", block->size);
+            block = merge_blocks(block, &last_block_in_memory);
+            //printf("size after merge : %lu\n", block->size);
+            if (block->size >= size) {
+                //printf("size ok : %lu\n", block->size);
+                if ((block + 1) != ptr) {
+                    to_return = memmove((block + 1), ptr, MIN(size_to_copy, size));
+                    //printf("memmove : %lu\n", MIN(size_to_copy, size));
+                } else {
+                    to_return = (block + 1);
+                }
+                block->available = 0;
+                block = split_block(block, size, &last_block_in_memory);
+            } else {
+                //printf("malloc\n");
+                to_return = malloc(size);
+                to_return = memcpy(to_return, ptr, MIN(size_to_copy, size));
+                free(ptr);
+            }
+        }
+    }
+
+    //printf("realloc return %p\n", to_return);
+    return to_return;
+}
+
+/*
+    The calloc function contiguously allocates enough space for count
+    objects that are size bytes of memory each and returns a pointer to the
+    allocated memory.  The allocated memory is filled with bytes of value
+    zero.
+    Parameters : 
+        count : Number of block to allocate
+        size : Size of each blocks
+    Returns :
+        A pointer to allocated memory if ok, NULL otherwise.
+*/
+void *calloc(size_t count, size_t size)
+{
+    size_t size_to_find = 0;
+    block_t *block = NULL;
+    void *to_return = NULL;
+
+    printf("calloc %lu/%lu\n", count, size);
+    if (count > 0 && size > 0) {
+        size_to_find = (count * size + count * sizeof(block_t));
+        //block = find_available_block(size_to_find);
+        if (block == NULL) {
+            block = allocate_memory_space(size_to_find);
+        }
+        block = create_x_pointer(block, count, size, &last_block_in_memory);   
+    }
+    if (block != NULL) {
+        printf("calloc : block != null\n");
+        to_return = (block + 1);    
+    }
+
+    printf("to_return : %p\n", to_return);
+    return to_return;
+}

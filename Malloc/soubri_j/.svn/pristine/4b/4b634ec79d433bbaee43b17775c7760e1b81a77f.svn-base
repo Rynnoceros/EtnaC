@@ -1,0 +1,38 @@
+/*
+** ETNA PROJECT, 16/01/2019 by soubri_j/martin_m
+** debug_malloc.c
+** File description: 
+**      This file contains debug functions for malloc program.
+*/
+
+#include "malloc.h"
+
+/*
+    Method used to print one block
+*/
+void print_block(block_t *block)
+{
+    printf("Block %p :\n", block);
+    printf("Available : %d\n", block->available);
+    printf("Size : %lu\n", block->size);
+    printf("Next : %p\n", block->next);
+    printf("Previous : %p\n", block->prev);
+    printf("Magic : %d\n", block->magic);
+}
+
+/*
+    Method used to display the chained list of blocks
+*/
+void print_list(block_t *first_block)
+{
+    block_t *ptr = NULL;
+
+    if (first_block != NULL) {
+        printf("print_list\n");
+        ptr = first_block;
+        while (ptr != NULL) {
+            print_block(ptr);
+            ptr = ptr->next;
+        }
+    }
+}

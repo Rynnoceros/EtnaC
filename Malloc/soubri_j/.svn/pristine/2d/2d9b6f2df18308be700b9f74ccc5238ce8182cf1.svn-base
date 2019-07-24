@@ -1,0 +1,19 @@
+/*
+** ETNA PROJECT, 11/01/2019 by soubri_j/martin_m
+** malloc.h
+** File description: 
+**      This file contains headers for malloc program.
+*/
+
+/* Structures definition */
+typedef struct block_s {
+    struct block_s* next;
+    struct block_s* prev;
+    size_t size;
+    int available;
+} block_t;
+
+/* Methods declaration */
+void* malloc(size_t size);
+void free(void *ptr);
+void print_list();

@@ -1,0 +1,64 @@
+/*
+** ETNA PROJECT, 12/11/2018 by soubri_j
+** container.c
+** File description: 
+**      This file contains all the methods used to manage a container.
+*/
+
+#include "ftl.h"
+
+/*
+    Function used to add a container to a ship
+    Params : 
+        ship : The ship to add container to
+    Returns :
+        1 if ok, 0 otherwise
+*/
+int add_container_to_ship(ship_t *ship)
+{
+    int ret = 0;
+
+    my_putstr_color("yellow", "adding the current container...\n");
+    if (ship != NULL) {
+        ship->container = malloc(sizeof(*ship->container));
+        if (ship->container != NULL) {
+            ship->container->first = NULL;
+            ship->container->last = NULL;
+            ship->container->nb_elem = 0;
+            ret = 1;
+        }
+    }
+    if (ret == 0) {
+        my_putstr_color("red", 
+            "your ship exploded when you put the container down\n");
+    } else if (ret == 1) {
+        my_putstr_color("green", "the container was successfully added\n");
+    }
+    return ret;
+}
+
+/*
+    Function used to add freight to a container in a ship.
+    Params :
+        ship : The that contains the container to add the freight to
+        freight : The freight to add to ship's container
+*/
+void add_freight_to_container(ship_t *ship, freight_t *freight)
+{
+    if (ship != NULL && freight != NULL) {
+        if (ship->container != NULL) {
+            if (ship->container->nb_elem == 0) {
+                freight->next = freight;
+                freight->prev = freight;
+                ship->container->first = freight;
+                ship->container->last = freight;
+            } else {
+                freight->next = ship->container->first->next;
+                freight->prev = ship->container->first->prev;
+                ship->container->last->next = freight;
+                // TO FINISH
+                ship->container->last->prev = NULL;
+            }
+        }
+    }
+}

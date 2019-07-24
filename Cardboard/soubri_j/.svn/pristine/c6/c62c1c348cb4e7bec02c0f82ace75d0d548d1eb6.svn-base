@@ -1,0 +1,18 @@
+/*
+** ETNA PROJECT, 24/10/2018 by soubri_j
+** interactions.h
+** File description:
+**      File containing headers for actions between characters and map.
+*/
+
+#ifndef __INTERACTIONS_H__
+# define __INTERACTIONS_H__
+#include "map.h"
+
+void pick_up(map_t *map, void *player, void *data);
+void open_door(map_t *map, void *player, void *data);
+void print_interaction_with_item(character_t *character, 
+                                 char *action, item_t *item);
+void (*interactions[NB_ITEM_TYPE]) = { pick_up, open_door, pick_up, pick_up };
+
+#endif //!__INTERACTIONS_H__

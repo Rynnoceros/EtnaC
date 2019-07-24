@@ -1,0 +1,35 @@
+#                                                                                                               
+# ETNA PROJECT, 18/10/2018 by soubri_j                                                                          
+# Makeflile                                                                                                
+# File description: 
+#      Makefile for Cardboard Pulley Training.
+#
+CC						= gcc
+AR_RC					= ar rc
+RM						= rm -f
+CD						= cd
+LIBMY_DIR				= libmy
+LIBMY_NAME				= libmy/libmy.a
+MAKE 					= make
+LIB_NAME				= libnot_rp1.a
+SRC						= character.c
+
+OBJ						= $(SRC:.c=.o)
+
+all: $(LIB_NAME)
+
+$(LIB_NAME): $(LIBMY_NAME) $(OBJ)
+	$(AR_RC) $(LIB_NAME) $(LIBMY_NAME) $(OBJ)
+
+$(LIBMY_NAME):
+	$(CD) $(LIBMY_DIR); $(MAKE) all; $(CD) ..
+
+clean:
+	$(RM) $(OBJ); $(CD) $(LIBMY_DIR); $(MAKE) clean; $(CD) ..
+
+fclean: clean
+	$(RM) $(LIB_NAME); $(RM) $(LIBMY_NAME)
+
+re: fclean all
+
+.PHONY: all $(LIB_NAME) $(LIBMY_NAME) clean fclean re

@@ -1,0 +1,20 @@
+/*
+** ETNA PROJECT, 12/11/2018 by soubri_j
+** main.c
+** File description: 
+**      This file contains my_ftl program loop.
+*/
+
+#include "ftl.h"
+#include <time.h>
+
+int main(void) {
+   play_screen_t the_game;
+   init_sdl(&the_game);
+   load_images(&the_game);
+   srandom(time(NULL));
+   game(&the_game);
+   close_sdl(&the_game);
+
+   return (0);
+}

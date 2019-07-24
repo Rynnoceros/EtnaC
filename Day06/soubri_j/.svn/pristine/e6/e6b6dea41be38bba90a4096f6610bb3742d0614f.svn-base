@@ -1,0 +1,22 @@
+/*                                                                                                               
+** ETNA PROJECT, 13/10/2018 by soubri_j                                                                          
+** main                                                                                                
+** File description:                                                                                             
+**      Programs that reads parameters and capitalize it.
+*/
+#include <stdlib.h>
+char *my_capitalize(char *str);
+void my_putstr(char *str);
+void my_putchar(char c);
+
+int main(int nb_args, char **args)
+{
+    char *current_arg = NULL;
+    if (nb_args > 1) {
+        for (int i = 1; i < nb_args; ++i) {
+            current_arg = my_capitalize(args[i]);
+            my_putstr(current_arg);
+            my_putchar('\n');
+        }
+    }
+}

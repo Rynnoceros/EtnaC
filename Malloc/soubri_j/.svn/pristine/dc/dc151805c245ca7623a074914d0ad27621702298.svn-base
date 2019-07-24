@@ -1,0 +1,13 @@
+/*
+** ETNA PROJECT, 10/01/2019 by soubri_j/martin_m
+** malloc.c
+** File description: 
+**      This file contains malloc program.
+*/
+
+#include <unistd.h>
+
+void* malloc(size_t size)
+{
+    return (void*)size;
+}

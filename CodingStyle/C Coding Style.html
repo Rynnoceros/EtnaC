@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>C Coding Style</title>
+		<link rel="stylesheet" href="C%20Coding%20Style_fichiers/font-awesome.css">
+		<link rel="stylesheet" href="C%20Coding%20Style_fichiers/prism.css">
+		<link rel="stylesheet" href="C%20Coding%20Style_fichiers/sujet-etna-new.css">
+		<script type="text/javascript" src="C%20Coding%20Style_fichiers/prism.js"></script><script src="C%20Coding%20Style_fichiers/clipboard.js"></script>
+	</head>
+	<body>
+		<div class="panel panel-module">
+			<div class="panel-heading">ETNA Documentation</div>
+		</div>
+		<div class="panel panel-project">
+			<div class="panel-heading">C Coding Style</div>
+			<div class="panel-body">
+				<p>The <i>Coding Style ETNA</i> is a set of rules, guidelines and 
+programming conventions that has been created within the school, and 
+that you have to respect.</p>
+				<p>It concerns:</p>
+				<ul>
+					<li>The organization of the delivery folder.</li>
+					<li>The denomination of the identifiers.</li>
+					<li>The overall presentation (paragraphs).</li>
+					<li>The local presentation (lines).</li>
+					<li>Source files and headers.</li>
+					<li>Makefiles.</li>
+				</ul>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>The <i>Coding Style</i> is a purely syntactic convention, so it can not be used as an excuse if your program does not work!</li>
+						</ul>
+					</div>
+				</div>
+				<p>It is compulsory on all programs written in C as part of ETNA 
+projects, regardless of the year or unit. It applies to all source files
+ (<code>.c</code>) and headers (<code>.h</code>), as well as Makefiles.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>Although the <i>Coding Style</i> is not required in all projects, this is not a reason for not always sequencing and structuring your code!</li>
+							<li>Most of the rules in this <i>Coding Style</i> apply to all languages, so it can be useful when you’re doing projects in different languages.</li>
+						</ul>
+					</div>
+				</div>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>It’s easier and quicker to follow the guide style from the 
+beginning of a project rather than to adapt an existing code at the end.</li>
+						</ul>
+					</div>
+				</div>
+				<p>The existence of this <i>Coding Style</i> is justified by the need to standardize the writing of programs within the school, in order to facilitate group work.</p>
+				<p>It is also an excellent way to encourage structuring and clarity of the code and thus facilitate:</p>
+				<ul>
+					<li>Its reading.</li>
+					<li>Its debugging.</li>
+					<li>Its maintenance.</li>
+					<li>Its internal logic.</li>
+					<li>Its reuse.</li>
+					<li>Writing tests.</li>
+					<li>Adding new features.</li>
+					<li>...</li>
+				</ul>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>When you are facing a choice and you do not know what 
+decision to make, always ask yourself which one helps to make your code 
+clearer, ergonomic and flexible.</li>
+						</ul>
+					</div>
+				</div>
+				<p>However, if you provide a <b>complete, relevant, accurate justification with a long-term view</b> (cleanliness, code expressiveness, flexibility, optimization, etc.), you may infringe some of the <i>Coding Style</i> points.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>The relevance of this justification is left to the discretion
+ of the proofreader, so it is preferable to present a strong 
+argumentation or to abstain.</li>
+						</ul>
+					</div>
+				</div>
+				<p>In case of uncertainty or ambiguity in the principles specified in this document, please refer to your local education manager.</p>
+				<p>There are 3 levels of severity: <b>major</b> <span class="cs-major"></span>, <b>minor</b> <span class="cs-minor"></span> and <b>info</b> <span class="cs-info"></span>.</p>
+				<p>There are many and many ways to produce unclean code. Even though
+ one cannot mention all of them in this document, they have to be 
+respected. We call them <b>implicite rules</b> when not explicitly defined in this document.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>Implicit rules are considered as infos <span class="cs-info"></span>.</li>
+						</ul>
+					</div>
+				</div>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>This document is inspired by the <a href="https://www.kernel.org/doc/html/v4.10/process/coding-style.html">Linux Kernel Coding Style</a>, and is freely adapted from Robert C. Martin’s excellent book <i>Clean Code</i>.</li>
+							<li>Some tools (such as <a href="http://editorconfig.org/">Editor Config</a>) might simplify the task.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- O - Files organization -->
+		<div class="panel panel-objective">
+			<div class="panel-heading">O - Files organization</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">O1 - Contents of the delivery folder</div>
+			<div class="panel-body">
+				<p class="cs-major">Your delivery folder should contain only <b>files required for compilation</b>.</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>This means no compiled (<code>.o</code>, <code>.gch</code>, <code>.a</code>, <code>.so</code>, ...), temporary or unnecessary files (<code>*~</code>, <code>*#</code>, <code>*.d</code>, <code>toto</code>, ...).</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">O2 - File extension</div>
+			<div class="panel-body">
+				<p class="cs-minor">Sources in a C program should only have extensions <code>.c</code> <b>or</b> <code>.h</code>.</p>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">O3 - File coherence</div>
+			<div class="panel-body">
+				<p class="cs-major">A source file should match <b>a logical entity</b>, and group all the functions associated with that entity.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>Beyond 5 non-static functions in your file, you should probably subdivide your logical entity into several sub-entities.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">O4 - Naming files and folders</div>
+			<div class="panel-body">
+				<p class="cs-major">The name of the file should define the logical entity it represents, and thus be <b>clear, precise, explicit and unambiguous</b>.</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>For example, the <code>string.c</code> or <code>algo.c</code> files are probably incorrectly named. Names like <code>string_toolbox.c</code> or <code>pathfinding.c</code> would be more appropriate.</li>
+						</ul>
+					</div>
+				</div>
+				<p>All identifier names should be <b>in English</b>, according to the <code>snake_case</code> <b>convention</b> (meaning it is composed only of lowercase, numbers, and underscores).</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>Abbreviations are tolerated if they are guaranteed to be 
+understood by any possible reader. In doubt, be as explicit as possible.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- G - Global scope -->
+		<div class="panel panel-objective">
+			<div class="panel-heading">G - Global scope</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">G1 - File header</div>
+			<div class="panel-body">
+				<p class="cs-major">The source files (<code>.c</code>, <code>.h</code>, <code>Makefile</code>, ...) should always start with the <b>standard header</b> of the school. This header is created in Emacs using the <code>C-c C-h</code> command.</p>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token comment">/*
+** ETNA PROJECT, $YEAR
+** $NAME_OF_THE_PROJECT
+** File description:
+** 		No file there, just an etna header example
+*/</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">G2 - Separation of functions</div>
+			<div class="panel-body">
+				<p class="cs-minor">Inside a source file, <b>one and only one empty line</b> should separate the implementations of functions.</p>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">G3 - Global variables</div>
+			<div class="panel-body">
+				<p class="cs-minor">Any <b>non-trivial constant</b> should be defined by a constant global variable.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>Non-constant static variables in the global scope are tolerated but should not be abused.</li>
+							<li>Non-constant non-static variables in the global scope should be <b>avoided</b> as much as possible.</li>
+							<li>A variable is called constant if and only if it is correctly marked as such with the keyword <b>const</b>. Watch out, this keyword follows some particular and sometimes surprising rules!</li>
+						</ul>
+					</div>
+				</div>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-float">float</span> golden_ratio <span class="token operator">=</span> <span class="token number">1.61803398875</span><span class="token punctuation">;</span>	<span class="token comment">/* OK */</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">G4 - Static</div>
+			<div class="panel-body">
+				<p class="cs-minor">Global variables and functions that are not used outside the compilation unit to which they belong should be <b>marked with the <code>static</code> keyword</b>.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>Be careful not to confuse the different uses of the <code>static</code> keyword.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- F - Functions -->
+		<div class="panel panel-objective">
+			<div class="panel-heading">F - Functions</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">F1 - Coherence of functions</div>
+			<div class="panel-body">
+				<p class="cs-minor">A function should only perform one simple task. This allows greater flexibility.</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>For example, a call to <code>malloc()</code>, a call to <code>allocate_user()</code> and a call to <code>create_user()</code> have 3 different levels of abstraction.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">F2 - Naming functions</div>
+			<div class="panel-body">
+				<p class="cs-major">The name of a function should <b>define the task it executes</b> and should <b>contain a verb</b>.</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>For example, the <code>voyals_nb()</code> and <code>dijkstra()</code> functions are incorrectly named. <code>get_voyals_number()</code> and <code>search_shortest_path()</code> are more meaningful and precise.</li>
+						</ul>
+					</div>
+				</div>
+				<p>All identifier names should be <b>in English</b>, according to the <code>snake_case</code> <b>convention</b> (meaning it is composed only of lowercase, numbers, and underscores).</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>Abbreviations are tolerated if they are guaranteed to be 
+understood by any possible reader. In doubt, be as explicit as possible.</li>
+						</ul>
+					</div>
+				</div>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<p>If you write libraries or utility code, it is better to adopt a naming convention such as <code>mylib_myfunction()</code></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">F3 - Number of columns</div>
+			<div class="panel-body">
+				<p class="cs-major">Inside functions, the length of a line should not exceed <b>80 columns</b> (not to be confused with 80 characters!).</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>A tabulation represents <b>1 character</b>, but several columns.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">F4 - Number of lines</div>
+			<div class="panel-body">
+				<p class="cs-major">The body of a function should contain the code needed to perform its purpose.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>If the body of a function exceeds <b>20 lines</b>, it probably does too many tasks!</li>
+						</ul>
+					</div>
+				</div>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>	<span class="token comment">/* this function is 2-line-long */</span>
+<span class="token punctuation">{</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello world!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+				<pre><code><p>The maximum length of a function is inversely proportional to the complexity and indentation level of that function.
+Within case-statement, where you have lots of small things for a lot of different cases, it’s OK to have a longer function.
+
+Linus Torvalds, Linux Kernel Coding Style</p></code></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">F5 - Arguments</div>
+			<div class="panel-body">
+				<p class="cs-major">The statement of arguments should follow the <b>ISO/ANSI C syntax</b>. A function taking no parameters should take void as argument in the function declaration.</p>
+				<pre class="language-c code-toolbar"><code class=" language-c">phys_addr_t <span class="token function">alloc_frame</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>		<span class="token comment">/* F5 violation */</span>
+phys_addr_t <span class="token function">alloc_frame</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>	<span class="token comment">/* OK */</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+				<p>A function should not need more than <b>4 arguments</b>. Writing variadic functions is allowed, but they should not be used to circumvent the limit of 4 parameters.</p>
+				<p>Structures should be transmitted as parameters using <b>a pointer, not by copy</b>.</p>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-void">void</span> <span class="token function">make_some_coffee</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> coffee_machine <span class="token operator">*</span>machine<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> nb_cups<span class="token punctuation">)</span>	<span class="token comment">/* OK */</span>
+<span class="token punctuation">{</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">F6 - Comments inside a function</div>
+			<div class="panel-body">
+				<p class="cs-minor">There <b>should be no comment</b> within a function. The function should be readable and self-explanatory, without further need for explanations.</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>The length of a function being inversely proportional to its 
+complexity, a complicated function should be short; so a header comment 
+should be enough to explain it.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- L - Layout inside a function scope -->
+		<div class="panel panel-objective">
+			<div class="panel-heading">L - Layout inside a function scope</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">L1 - Code line content</div>
+			<div class="panel-body">
+				<p class="cs-major">A line should correspond to <b>only one statement</b>.</p>
+				<p>Typical situations to avoid are:</p>
+				<ul>
+					<li>several assignments on the same line.</li>
+					<li>several semi-colons on the same line, used to separate several code sequences.</li>
+					<li>a condition and an assignment on the same line.</li>
+				</ul>
+				<pre class="language-c code-toolbar"><code class=" language-c">a <span class="token operator">=</span> b <span class="token operator">=</span> c <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>											<span class="token comment">/* L1 violation */</span>
+a<span class="token operator">++</span><span class="token punctuation">;</span> b<span class="token operator">++</span><span class="token punctuation">;</span>												<span class="token comment">/* L1 violation */</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>ptr <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> my_struct<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>	<span class="token comment">/* L1 violation */</span>
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>cond<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>									<span class="token comment">/* L1 violation */</span>
+a <span class="token operator">=</span> <span class="token function">do_something</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">;</span>									<span class="token comment">/* L1 violation */</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">L2 - Indentation</div>
+			<div class="panel-body">
+				<p class="cs-minor">4 spaces should be used for indentation. Tabulations should never be used for indenting purposes.</p>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">L3 - Spaces</div>
+			<div class="panel-body">
+				<p class="cs-minor">Always place a <b>space after a comma or a keyword</b> (with or without argument).</p>
+				<p>However, there will be no space between the name of a function and the opening parenthesis or after a unary operator.</p>
+				<p>All binary and ternary operators should be separated from the arguments by a space on both sides.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li><code>return</code> is a keyword but <code>sizeof</code> is a unary operator!</li>
+						</ul>
+					</div>
+				</div>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-return">return</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>					<span class="token comment">/* L3 violation */</span>
+<span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>					<span class="token comment">/* OK */</span>
+sum <span class="token operator">=</span> term1 <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">*</span> term2<span class="token punctuation">;</span>	<span class="token comment">/* OK */</span>
+s <span class="token operator">=</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-struct">struct</span> file<span class="token punctuation">)</span><span class="token punctuation">;</span>	<span class="token comment">/* OK */</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">L4 - Curly brackets</div>
+			<div class="panel-body">
+				<p class="cs-minor">Opening curly brackets should be <b>at the end of their line</b>, except for functions where they must be placed alone on their line.</p>
+				<p>Closing curly brackets should always be <b>alone on their line</b>, except in the case of an <code>else</code> statement.</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>In the case of a single-line scope, curly brackets are optional.</li>
+						</ul>
+					</div>
+				</div>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>cond<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span>	<span class="token comment">/* L1 &amp; L4 violation */</span>
+
+<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>cond<span class="token punctuation">)</span> <span class="token punctuation">{</span>				<span class="token comment">/* OK */</span>
+	<span class="token function">do_something</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>cond<span class="token punctuation">)</span>					<span class="token comment">/* L4 violation */</span>
+<span class="token punctuation">{</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>					<span class="token comment">/* OK */</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>cond<span class="token punctuation">)</span>					<span class="token comment">/* OK */</span>
+	<span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">print_env</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>			<span class="token comment">/* OK */</span>
+<span class="token punctuation">{</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">print_env</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>		<span class="token comment">/* L4 violation */</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">L5 - Variables declaration</div>
+			<div class="panel-body">
+				<p class="cs-minor">Variables should be declared <b>at the beginning of a scope</b> (it can be either a function scope, an if-block subscope, etc.). Variables scopes should be as tight as possible.</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>Nothing prevents you from declaring and assigning a variable 
+on the same line. It is even encouraged, as it ensures initialization of
+ the variable.</li>
+						</ul>
+					</div>
+				</div>
+				<p><b>Only one variable</b> should be declared per line.</p>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-long">long</span> <span class="token function">calculate_pgcd</span><span class="token punctuation">(</span><span class="token keyword keyword-long">long</span> a<span class="token punctuation">,</span> <span class="token keyword keyword-long">long</span> b<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword keyword-long">long</span> biggest<span class="token punctuation">,</span> smallest<span class="token punctuation">;</span>				<span class="token comment">/* L5 violation */</span>
+
+	biggest <span class="token operator">=</span> <span class="token function">MAX</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	smallest <span class="token operator">=</span> <span class="token function">MIN</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword keyword-long">long</span> rest<span class="token punctuation">;</span>							<span class="token comment">/* L5 violation */</span>
+	<span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>smallest <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		rest <span class="token operator">=</span> biggest <span class="token operator">%</span> smallest<span class="token punctuation">;</span>
+		biggest <span class="token operator">=</span> smallest<span class="token punctuation">;</span>
+		smallest <span class="token operator">=</span> rest<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> forty_two <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>					<span class="token comment">/* OK */</span>
+    <span class="token keyword keyword-int">int</span> max <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>						<span class="token comment">/* OK */</span>
+
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> max <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>   <span class="token comment">/* OK */</span>
+        <span class="token keyword keyword-long">long</span> result <span class="token operator">=</span> <span class="token function">calculate_pgcd</span><span class="token punctuation">(</span>forty_two<span class="token punctuation">,</span> max<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* OK */</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">L6 - Line jumps</div>
+			<div class="panel-body">
+				<p class="cs-minor">A line break should <b>separate the variable declarations from the remainder</b> of the function. Single line breaks are tolerated inside a function if they help with readability</p>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-int">int</span> <span class="token function">sys_open</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> <span class="token keyword keyword-const">const</span> <span class="token operator">*</span>path<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword keyword-int">int</span> fd <span class="token operator">=</span> <span class="token function">thread_reserve_fd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword keyword-struct">struct</span> filehandler <span class="token operator">*</span>fhandler <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+											<span class="token comment">/* OK */</span>
+	<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>fd <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+		<span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">fs_open</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> <span class="token operator">&amp;</span>fhandler<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token function">thread_free_fd</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+											<span class="token comment">/* Tolerated */</span>
+	<span class="token function">thread_set_fd_handler</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> fhandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+
+		<!-- V - Variables and types -->
+		<div class="panel panel-objective">
+			<div class="panel-heading">V - Variables and types</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">V1 - Naming identifiers</div>
+			<div class="panel-body">
+				<p class="cs-major">All identifier names should be <b>in English</b>, according to the <code>snake_case</code> <b>convention</b> (meaning it is composed only of lowercase, numbers, and underscores).</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>Abbreviations are tolerated as long as they significantly reduce the name length without losing meaning.</li>
+						</ul>
+					</div>
+				</div>
+				<p>The type names defined with <code>typedef</code> should <b>end with</b> <code>_t</code>. The names of <b>macros<b> and the content of <b>enums</b> should be written in <code>UPPER_CASE</code>.</b></b></p><b><b>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token macro property">#<span class="token directive keyword">define</span> IS_PAGE_ALIGNED(x) (!((x) &amp; (PAGE_SIZE - 1)))		</span><span class="token comment">/* OK */</span>
+<span class="token keyword keyword-enum">enum</span> arch <span class="token punctuation">{</span>													<span class="token comment">/* OK */</span>
+	I386 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+	X86_64<span class="token punctuation">,</span>
+	ARM<span class="token punctuation">,</span>
+	ARM64<span class="token punctuation">,</span>
+	SPARC<span class="token punctuation">,</span>
+	POWERPC<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-int">int</span> age<span class="token punctuation">;</span>											<span class="token comment">/* V1 violation */</span>
+<span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> int_couple pixel_t<span class="token punctuation">;</span>							<span class="token comment">/* OK */</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</b></b></div><b><b>
+		</b></b></div><b><b>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">V2 - Structures</div>
+			<div class="panel-body">
+				<p class="cs-major">Variables could be grouped together into a structure if and only if they form <b>a coherent entity</b>. Structures must be kept <b>as small as possible</b>.</p>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-struct">struct</span> person <span class="token punctuation">{</span>				<span class="token comment">/* OK */</span>
+	<span class="token keyword keyword-char">char</span> <span class="token operator">*</span>name<span class="token punctuation">;</span>
+	<span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> age<span class="token punctuation">;</span>
+	<span class="token keyword keyword-float">float</span> salary<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-struct">struct</span> trashy <span class="token punctuation">{</span>				<span class="token comment">/* V2 violation */</span>
+	<span class="token keyword keyword-struct">struct</span> person player<span class="token punctuation">;</span>
+	<span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> width<span class="token punctuation">;</span>
+	<span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> length<span class="token punctuation">;</span>
+	<span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> score<span class="token punctuation">;</span>
+	<span class="token keyword keyword-int">int</span> i<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">V3 - Pointers</div>
+			<div class="panel-body">
+				<p class="cs-minor">The pointer symbol (<code>*</code>) should be <b>attached to the associated variable</b>, with no spaces.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>This rule applies only in the pointer context.</li>
+						</ul>
+					</div>
+				</div>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-int">int</span><span class="token operator">*</span> a<span class="token punctuation">;</span>							<span class="token comment">/* V3 violation */</span>
+<span class="token keyword keyword-int">int</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>							<span class="token comment">/* OK */</span>
+<span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">3</span> <span class="token operator">*</span> b<span class="token punctuation">;</span>					<span class="token comment">/* OK */</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> <span class="token keyword keyword-const">const</span> <span class="token operator">*</span>str<span class="token punctuation">)</span><span class="token punctuation">;</span>	<span class="token comment">/* OK*/</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+
+		<!-- C - Control structure -->
+		<div class="panel panel-objective">
+			<div class="panel-heading">C - Control structure</div>
+			<div class="panel-body">
+				<p>Unless otherwise specified, all control structures are <b>allowed</b>.</p>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">C1 - Ternary</div>
+			<div class="panel-body">
+				<p class="cs-info">Ternaries are <b>allowed as far as they are kept simple and readable</b>, and they do not obfuscate code. Remember that ternaries are expressions: use their result.</p>
+				<div class="panel panel-warning">
+					<div class="panel-heading">Warning</div>
+					<div class="panel-body">
+						<ul>
+							<li>You should never use <b>nested or chained ternaries</b>.</li>
+							<li>Ternaries should <b>not be used to control program flow</b>.</li>
+						</ul>
+					</div>
+				</div>
+				<pre class="language-c code-toolbar"><code class=" language-c">parity_t year_parity <span class="token operator">=</span> <span class="token punctuation">(</span>year <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span> EVEN <span class="token punctuation">:</span> ODD<span class="token punctuation">;</span>		<span class="token comment">/* OK */</span>
+<span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span>a <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">?</span> a <span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>										<span class="token comment">/* OK */</span>
+<span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> b <span class="token operator">&gt;</span> <span class="token number">10</span> <span class="token operator">?</span> c <span class="token operator">&lt;</span> <span class="token number">20</span> <span class="token operator">?</span> <span class="token number">50</span> <span class="token punctuation">:</span> <span class="token number">80</span> <span class="token punctuation">:</span> e <span class="token operator">==</span> <span class="token number">2</span> <span class="token operator">?</span> <span class="token number">4</span> <span class="token punctuation">:</span> <span class="token number">8</span><span class="token punctuation">;</span>			<span class="token comment">/* C1 violation */</span>
+already_checked <span class="token operator">?</span> <span class="token function">go_there</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>						<span class="token comment">/* C1 violation */</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">C2 - Goto</div>
+			<div class="panel-body">
+				<p class="cs-minor">Your code <b>should not contain the <code>goto</code> keyword</b>, especially because it can very quickly participate in the creation of infamous spaghetti code, which is completely illegible.</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>In <b>rare cases</b>, its use makes it possible to bring readability and/or optimization to your program (error management for example).</li>
+							<li>As always, a justification will be systematically requested.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- A - Advanced -->
+		<div class="panel panel-objective">
+			<div class="panel-heading">A - Advanced</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">A1 - Constant pointers</div>
+			<div class="panel-body">
+				<p class="cs-info">When creating a pointer, if the pointed data is not modified throught the pointer, it should be marked as <b>constant</b> (<code>const</code>). This rule applies for both pointer parameters and regular pointer variables.</p>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">A2 - Typing</div>
+			<div class="panel-body">
+				<p class="cs-info">Prefer the <b>most accurate types possible</b> according to the use of the data.</p>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token keyword keyword-int">int</span> counter<span class="token punctuation">;</span>									<span class="token comment">/* A2 violation */</span>
+<span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> counter<span class="token punctuation">;</span>							<span class="token comment">/* OK */</span>
+<span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> <span class="token function">get_obj_size</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token keyword keyword-const">const</span> <span class="token operator">*</span>object<span class="token punctuation">)</span>	<span class="token comment">/* A2 violation */</span>
+size_t <span class="token function">get_obj_size</span><span class="token punctuation">(</span><span class="token keyword keyword-void">void</span> <span class="token keyword keyword-const">const</span> <span class="token operator">*</span>object<span class="token punctuation">)</span>			<span class="token comment">/* OK */</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li><code>ptrdiff_t</code>, <code>uint8_t</code>, <code>int32_t</code>, ...</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- H - Header files -->
+		<div class="panel panel-objective">
+			<div class="panel-heading">H - Header files</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">H1 - Content</div>
+			<div class="panel-body">
+				<p class="cs-major">Header files should contain only:</p>
+				<ul>
+					<li><b>Prototypes of functions</b>.</li>
+					<li><b>Type declarations</b>.</li>
+					<li><b>Global variable declarations</b>.</li>
+					<li><b>Macros</b>.</li>
+					<li><b>Static inline</b> functions.</li>
+				</ul>
+				<p>All these elements should be found <b>only</b> in header files.</p>
+				<div class="panel panel-info">
+					<div class="panel-heading">Informations</div>
+					<div class="panel-body">
+						<ul>
+							<li>Header files can include other headers (if and only if it is necessary).</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">H2 - Include guard</div>
+			<div class="panel-body">
+				<p class="cs-minor">Headers should be protected from <b>double inclusion</b>. The method and the conventions used are left free.</p>
+			</div>
+		</div>
+		<div class="panel panel-exercice">
+			<div class="panel-heading">H3 - Macros</div>
+			<div class="panel-body">
+				<p class="cs-minor">Macros should match <b>only one statement</b>.</p>
+				<pre class="language-c code-toolbar"><code class=" language-c"><span class="token macro property">#<span class="token directive keyword">define</span> DELTA(a, b, c)		((b) * (b) - 4 * (a) * (c))		</span><span class="token comment">/* OK */</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> PRINT_NEXT(num)		{num++; printf("%d", num);}		</span><span class="token comment">/* H3 violation */</span></code><div class="toolbar"><div class="toolbar-item"><a>Copy</a></div></div></pre>
+			</div>
+		</div>
+	
+
+</b></b></body></html>

@@ -1,0 +1,23 @@
+/*                                                                                                               
+** ETNA PROJECT, 02/10/2018 by soubri_j                                                                          
+** my_fibonacci                                                                                                
+** File description:                                                                                             
+**      Function returns the nth number of the Fibonacci sequence.
+*/
+int my_fibonacci(int n)
+{
+    int arr[n + 1];
+
+    if (n <= 0)
+        return 0;
+    
+    if (n == 1)
+        return 1;
+
+    arr[0] = 0;
+    arr[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        arr[i] = arr[i-1] + arr[i-2];
+    }
+    return arr[n];
+}

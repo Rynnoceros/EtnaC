@@ -1,0 +1,203 @@
+/*
+** ETNA PROJECT, 16/01/2019 by soubri_j/martin_m
+** optimize_malloc.c
+** File description: 
+**      This file contains optimizing functions for malloc program.
+*/
+
+#include "malloc.h"
+
+/*
+    Method used to optimize size of a block. In case of reusing a block,
+    we look at previous and next block to see if they are available.
+    If they are we merge blocks in one, allocate the size, and split the block
+    in two if there is space left.
+    Parameters :
+        block_to_optimize : The block to optimize
+        last_block_in_memory : The last sbrk allocated block in memory
+    Returns :
+        An merged block if possible, the block_to_optimize otherwise
+*/
+block_t *merge_block(block_t *block_to_optimize, 
+                    block_t **last_block_in_memory)
+{
+    block_t *to_merge = NULL;
+
+    //printf("merge_block %p/%p\n", block_to_optimize, last_block_in_memory);
+    if (block_to_optimize != NULL) {
+        if (block_to_optimize->prev != NULL) {
+            if (block_to_optimize->prev->available == 1) {
+                block_to_optimize->prev->size += block_to_optimize->size 
+                    + sizeof(*block_to_optimize);
+                block_to_optimize->prev->next = block_to_optimize->next;
+                if (block_to_optimize->next != NULL) {
+                    block_to_optimize->next->prev = block_to_optimize->prev;
+                }
+                block_to_optimize = block_to_optimize->prev;
+            }
+        }
+        if (block_to_optimize->next != NULL) {
+            if (block_to_optimize->next->available == 1) {
+                to_merge = block_to_optimize->next;
+                if (block_to_optimize->next->next != NULL) {
+                    block_to_optimize->next->next->prev = block_to_optimize;
+                }
+                block_to_optimize->size += to_merge->size + sizeof(*to_merge);
+                block_to_optimize->next = block_to_optimize->next->next;
+            }
+        }
+        if (block_to_optimize->next == NULL) {
+            (*last_block_in_memory) = block_to_optimize;
+        }
+    }
+    return block_to_optimize;
+}
+
+/*
+    Method used to split a block in two block if all the size is not used.
+    We check that the space left have at least a size of 1 + block_t size.
+    If it is the case we split the block in two blocks.
+    Parameters :
+        block_to_split : The block to split
+        used_size : Used size in the block to split
+        last_block_in_memory : The last sbrk allocated block in memory
+    Returns :
+        The block to split.
+*/
+block_t *split_block(block_t *block_to_split, size_t used_size,
+                    block_t **last_block_in_memory)
+{
+    block_t *new_block = NULL;
+
+    //printf("split_block %p/%lu/%p\n", block_to_split, used_size, last_block_in_memory);
+    if (block_to_split != NULL) {
+        if (used_size > 0 && 
+            (block_to_split->size - used_size >= sizeof(block_t) + 1)) {
+            new_block = (block_t *)(((void *)block_to_split) + sizeof(block_t)
+                + used_size);
+            new_block->prev = block_to_split;
+            new_block->next = block_to_split->next;
+            new_block->size = block_to_split->size - used_size - sizeof(block_t);
+            new_block->available = 1;
+            new_block->magic = magic_number;
+            block_to_split->size = used_size;
+            block_to_split->next = new_block;
+            if (new_block->next != NULL) {
+                new_block->next->prev = new_block;
+            } else {
+                (*last_block_in_memory) = new_block;
+            }
+        }
+    }
+
+    return block_to_split;
+}
+
+/*
+    Method used to merge blocks while contiguous block are available
+    Paramters :
+        block_to_optimize : Pointer to an adress to optimize
+        last_block_in_memory : The last sbrk allocated block.
+    Returns ;
+        The new address if optimization has been done, the old one otherwise.
+*/
+block_t *merge_blocks(block_t *block_to_optimize, 
+                    block_t **last_block_in_memory)
+{
+    size_t old_size = 0;
+    block_t *block = block_to_optimize;
+
+    do {
+        old_size = block->size;
+        block = merge_block(block, last_block_in_memory);
+    } while (old_size != block->size);
+
+    return block;
+}
+
+/*
+    Method to initialize block with 0.
+    Parameters :
+        block : Block to initialize
+    Returns :
+        The initialized block
+*/
+block_t *initialize_block(block_t *block) 
+{
+    void *memory = NULL;
+    char *content = NULL;
+    size_t size = 0;
+
+    if (block != NULL) {
+        size = block->size;
+        memory = (void *)(block + 1);
+        content = (char *)memory;
+        while (size--) {
+            *content = '\0';
+            content++;
+        }
+    }
+
+    return block;
+}
+
+/*
+    Method used to create count pointer pointers of size size contiguously.
+    We save the start block and its next position.
+    Then we split the block in count blocks.
+    The last block next pointer will have the value of the next position saved.
+    Params :
+        block : The pointer to the start position to create
+        count : The number of pointer to create
+        size : The size of each pointer
+        last_block_in_memory : The last sbrk allocated block in memory
+    Returns :
+        A pointer to the fisrt block if ok, NULL otherwise.
+*/
+/*block_t *create_x_pointer(block_t *block, size_t count, size_t size,
+                         block_t **last_block_in_memory)
+{
+    block_t *current_block = block;
+    block_t *next = NULL;
+    block_t *prev = NULL;
+
+    printf("create_pointer\n");
+    if (block != NULL) {
+        next = block->next;
+        printf("next %p\n", next);
+        while (count--) {
+            current_block->available = 0;
+            current_block->size = size;
+            current_block->magic = magic_number;
+            current_block->next = ((void *) current_block) + sizeof(*current_block)
+                + size;
+            printf("initialize block\n");
+            current_block = initialize_block(current_block);
+            printf("current_block->next : %p\n", current_block->next);
+            if (prev == NULL) {
+                printf("prev == null\n");
+                prev = block->prev;
+            } else {
+                printf("prev != null\n");
+                current_block->prev = prev;
+            }
+            if (count > 0) {
+                printf("count > 0\n");
+                prev = current_block;
+                current_block = current_block->next;
+            } else {
+                printf("count <= 0\n");
+                current_block->next = next;
+            }
+        }
+        if (next == NULL) {
+            printf("last_block of memory modified\n");
+            (*last_block_in_memory) = current_block;
+        } else {
+            printf("next->prev = current_block\n");
+            next->prev = current_block;
+        }
+        //split_block(current_block, size, last_block_in_memory);
+    }
+    return block;
+}*/

@@ -1,0 +1,802 @@
+Can hurt your malloc in 770 steps, you can Ctrl-C to see it.
+^C
+char *pointers[4096];
+pointers[2761] = malloc(600);
+first
+allocate -> next (nil)
+pointers[1486] = malloc(200);
+available size 200
+inside available 200
+ptr allocated 0x1c19000
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[677] = malloc(377);
+available size 377
+inside available 377
+ptr allocated 0x1c19000
+next 0x1c19278
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[3611] = malloc(347);
+available size 347
+inside available 347
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[1904] = malloc(209);
+available size 209
+inside available 209
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[1159] = malloc(67);
+available size 67
+inside available 67
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[1916] = malloc(316);
+available size 316
+inside available 316
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[630] = malloc(53);
+available size 53
+inside available 53
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[737] = malloc(348);
+available size 348
+inside available 348
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[3508] = malloc(353);
+available size 353
+inside available 353
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[3371] = malloc(183);
+available size 183
+inside available 183
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[256] = malloc(539);
+available size 539
+inside available 539
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[526] = malloc(485);
+available size 485
+inside available 485
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[4094] = malloc(649);
+available size 649
+inside available 649
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[650] = malloc(10);
+available size 10
+inside available 10
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[3367] = malloc(305);
+available size 305
+inside available 305
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[2255] = malloc(374);
+available size 374
+inside available 374
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[2703] = malloc(114);
+available size 114
+inside available 114
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[2553] = malloc(304);
+available size 304
+inside available 304
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[1711] = malloc(163);
+available size 163
+inside available 163
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[3736] = malloc(559);
+available size 559
+inside available 559
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[867] = malloc(130);
+available size 130
+inside available 130
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[275] = malloc(43);
+available size 43
+inside available 43
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[2513] = malloc(294);
+available size 294
+inside available 294
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[2965] = malloc(484);
+available size 484
+inside available 484
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next 0x1c1ad28
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[709] = malloc(481);
+available size 481
+inside available 481
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next 0x1c1ad28
+next 0x1c1ae6e
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[3493] = malloc(488);
+available size 488
+inside available 488
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next 0x1c1ad28
+next 0x1c1ae6e
+next 0x1c1b072
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[1304] = malloc(423);
+available size 423
+inside available 423
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next 0x1c1ad28
+next 0x1c1ae6e
+next 0x1c1b072
+next 0x1c1b273
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[699] = malloc(437);
+available size 437
+inside available 437
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next 0x1c1ad28
+next 0x1c1ae6e
+next 0x1c1b072
+next 0x1c1b273
+next 0x1c1b47b
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[650] = realloc(pointers[650], 607);
+available size 607
+inside available 607
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next 0x1c1ad28
+next 0x1c1ae6e
+next 0x1c1b072
+next 0x1c1b273
+next 0x1c1b47b
+next 0x1c1b642
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[4018] = malloc(298);
+available size 298
+inside available 298
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next 0x1c1ad28
+next 0x1c1ae6e
+next 0x1c1b072
+next 0x1c1b273
+next 0x1c1b47b
+next 0x1c1b642
+next 0x1c1b817
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[3234] = malloc(540);
+available size 540
+inside available 540
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a460
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next 0x1c1ad28
+next 0x1c1ae6e
+next 0x1c1b072
+next 0x1c1b273
+next 0x1c1b47b
+next 0x1c1b642
+next 0x1c1b817
+next 0x1c1ba96
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+pointers[3367] = realloc(pointers[3367], 662);
+Merge previous
+available size 662
+inside available 662
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a5b1
+next 0x1c1a747
+next 0x1c1a7d9
+next 0x1c1a929
+next 0x1c1a9ec
+next 0x1c1ac3b
+next 0x1c1acdd
+next 0x1c1ad28
+next 0x1c1ae6e
+next 0x1c1b072
+next 0x1c1b273
+next 0x1c1b47b
+next 0x1c1b642
+next 0x1c1b817
+next 0x1c1ba96
+next 0x1c1bbe0
+next (nil)
+find_available_block (nil)
+not found allocate
+allocate -> next (nil)
+Merge previous
+pointers[1490] = malloc(562);
+available size 562
+inside available 562
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+found
+find_available_block 0x1c1a436
+pointers[3595] = malloc(446);
+available size 446
+inside available 446
+ptr allocated 0x1c19000
+next 0x1c19278
+next 0x1c19360
+next 0x1c194f9
+next 0x1c19674
+next 0x1c19765
+next 0x1c197c8
+next 0x1c19924
+next 0x1c19979
+next 0x1c19af5
+next 0x1c19c76
+next 0x1c19d4d
+next 0x1c19f88
+next 0x1c1a18d
+next 0x1c1a436
+next 0x1c1a5b1
+next 0x5d5d5d5d5d5d5d5d
+
+18446744073709551615
+6727636073941130000

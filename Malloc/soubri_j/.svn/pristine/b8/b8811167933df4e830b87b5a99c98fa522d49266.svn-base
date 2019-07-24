@@ -1,0 +1,81 @@
+/*
+** ETNA PROJECT, 16/01/2019 by soubri_j/martin_m
+** optimize_malloc.c
+** File description: 
+**      This file contains optimizing functions for malloc program.
+*/
+
+#include "malloc.h"
+
+/*
+    Method used to optimize size of a block. In case of reusing a block,
+    we look at previous and next block to see if they are available.
+    If they are we merge blocks in one, allocate the size, and split the block
+    in two if there is space left.
+    Parameters :
+        block_to_optimize : The block to optimize
+    Returns :
+        An merged block if possible, the block_to_optimize otherwise
+*/
+block_t *merge_block(block_t *block_to_optimize)
+{
+    size_t previous_size = 0;
+    block_t *next_block = NULL;
+
+    if (block_to_optimize != NULL) {
+        previous_size = block_to_optimize->size;
+        if (block_to_optimize->prev != NULL) {
+            if (block_to_optimize->prev->available == 1) {
+                next_block = block_to_optimize->next;
+                block_to_optimize = block_to_optimize->prev;
+                block_to_optimize->size += previous_size + sizeof(block_t);
+                block_to_optimize->available = 0;
+                block_to_optimize->next = next_block;
+            }
+        }
+        if (block_to_optimize->next != NULL) {
+            if (block_to_optimize->next->available == 1) {
+                if (block_to_optimize->next->next != NULL) {
+                    block_to_optimize->next->next->prev = block_to_optimize;
+                    block_to_optimize->size += block_to_optimize->next->size + sizeof(block_t);
+                }
+                block_to_optimize->next = block_to_optimize->next->next;
+            }
+        }
+    }
+
+    return block_to_optimize;
+}
+
+/*
+    Method used to split a block in two block if all the size is not used.
+    We check that the space left have at least a size of 1 + block_t size.
+    If it is the case we split the block in two blocks.
+    Parameters :
+        block_to_split : The block to split
+        used_size : Used size in the block to split
+    Returns :
+        The block to split.
+*/
+block_t *split_block(block_t *block_to_split, size_t used_size)
+{
+    block_t new_block;
+
+    if (block_to_split != NULL) {
+        if (used_size > 0 && 
+            (block_to_split->size - used_size >= sizeof(block_t) + 1)) {
+            new_block.prev = block_to_split;
+            new_block.next = block_to_split->next;
+            new_block.size = block_to_split->size - used_size - sizeof(block_t);
+            new_block.available = 1;
+            new_block.magic = magic_number;
+            block_to_split->size = used_size;
+            block_to_split->next = &new_block;
+            if (new_block.next != NULL) {
+                new_block.next->prev = &new_block;
+            }
+        }
+    }
+
+    return block_to_split;
+}

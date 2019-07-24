@@ -1,0 +1,34 @@
+/*                                                                                                               
+** ETNA PROJECT, 19/10/2018 by soubri_j                                                                          
+** inventory.h                                                                                                
+** File description: 
+**      Header containing all functions and typedef declarations to manage
+**      an inventory for Cardboard Pulley Training.
+*/
+#ifndef __INVENTORY_H__
+# define __INVENTORY_H__
+#include "libmy.h"
+
+/**** Structures and enumerations ****/
+typedef enum {
+    E_KEY,
+    E_DOOR,
+    E_GUN,
+    E_KNIFE
+} item_type_e;
+
+typedef struct {
+    int id;
+    item_type_e type;
+    int coord[2];
+} item_t;
+
+typedef struct {
+    int id;
+    int nb_items;
+    item_t *items;
+} inventory_t;
+
+/**** Functions declarations ****/
+inventory_t *new_inventory();
+#endif // !__INVENTORY_H__

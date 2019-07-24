@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html itemscope="" itemtype="http://schema.org/QAPage" class="html__responsive"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+        <title>file - Correct use of Stat on C - Stack Overflow</title>
+        <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+        <link rel="apple-touch-icon image_src" href="https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+        <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="https://stackoverflow.com/opensearch.xml">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://stackoverflow.com/questions/3138600/correct-use-of-stat-on-c">
+        <meta property="og:site_name" content="Stack Overflow">
+        <meta property="og:image" itemprop="image primaryImageOfPage" content="https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:domain" content="stackoverflow.com">
+        <meta name="twitter:title" property="og:title" itemprop="title name" content="Correct use of Stat on C">
+        <meta name="twitter:description" property="og:description" itemprop="description" content="Why does this work :
+
+char *fd = &quot;myfile.txt&quot;;
+struct stat buf;          
+
+stat(fd, &amp;amp;buf);
+int size = buf.st_size;
+
+printf(&quot;%d&quot;,size);
+But this does not work:
+
+char *fd = &quot;myfile.txt&quot;;
+struct ...">
+        <script src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/rules-p-c1rF4kxgLUzNc.js" async=""></script><script async="" src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/quant.js"></script><script async="" src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/beacon.js"></script><script async="" src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/analytics.js"></script><script src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/jquery.js"></script>
+        <script src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/stub.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/stacks.css">
+    <link rel="stylesheet" type="text/css" href="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/primary-unified.css">
+
+    
+            <link rel="alternate" type="application/atom+xml" title="Feed for question 'Correct use of Stat on C'" href="https://stackoverflow.com/feeds/question/3138600">
+            <meta name="twitter:app:country" content="US">
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:iphone" content="871299723">
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/3138600/correct-use-of-stat-on-c">
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+            <meta name="twitter:app:id:ipad" content="871299723">
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/3138600/correct-use-of-stat-on-c">
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/3138600/correct-use-of-stat-on-c">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+
+            StackExchange.ready(function () {
+                                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({showAnswerHelp:true,totalCommentCount:5,shownCommentCount:5,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:3138600});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('1', '3138600');
+                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+        
+        
+        
+        
+        
+        
+                <script>
+        StackExchange.init({"locale":"en","serverTime":1539386418,"routeName":"Questions/Show","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"childUrl":"https://meta.stackoverflow.com","enableSocialMediaInSharePopup":true,"protocol":"https"},"user":{"fkey":"568dec36cfd1821dc6ffe86cfc241edf515682757078a52fe753f54a23497be0","tid":"6e8aa32a-6b9b-a1d0-2462-a657e80907d3","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75,"likedTagsMaxLength":300,"dislikedTagsMaxLength":300},"jobPreferences":{"maxNumDeveloperRoles":2,"maxNumIndustries":4},"svgIconPath":"https://cdn.sstatic.net/Img/svg-icons","svgIconHash":"0f0fc5e90a6d"}, {"site":{"allowImageUploads":true,"enableUserHovercards":true,"styleCode":true,"enableImgurHttps":true,"forceHttpsImages":true,"stacksValidation":true},"userMessaging":{"showNewFeatureNotice":true},"comments":{},"userProfile":{"openGraphAPIKey":"58740831ad23540e00c58987"},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"snippets":{"snippetsEnabled":true,"renderDomain":"stacksnippets.net"},"paths":{},"markdown":{"asteriskIntraWordEmphasis":true},"monitoring":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"mentions":{"maxNumUsersInDropdown":50},"slack":{"sidebarAdDismissCookie":"slack-sidebar-ad"}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"b0a4aa9f14df","js/moderator.en.js":"c48addfbc3c8","js/full-anon.en.js":"9b246a338604","js/full.en.js":"a020698bb93c","js/wmd.en.js":"9f2fd0214a4c","js/mobile.en.js":"485a932a3088","js/help.en.js":"ea9b6d3ca995","js/tageditor.en.js":"015a94d72217","js/tageditornew.en.js":"9b5209f77d61","js/inline-tag-editing.en.js":"97b4a0d9f86f","js/revisions.en.js":"be10a4167571","js/review.en.js":"4490fb038b6f","js/tagsuggestions.en.js":"7b7b7ff5781e","js/post-validation.en.js":"d3122dde431e","js/explore-qlist.en.js":"e2a8178eb759","js/events.en.js":"e763eb10ddb0","js/keyboard-shortcuts.en.js":"06c4f3e7180c","js/external-editor.en.js":"1a32b32eb9d0","js/adops.en.js":"22a9bd59b1e9","js/begin-edit-event.en.js":"3238dd301e69","js/external-editor.en.js":"1a32b32eb9d0","js/snippet-javascript.en.js":"ab76fd99422a","js/snippet-javascript-codemirror.en.js":"78a3d67ef359"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    <noscript id="noscript-css"><style>body,.top-bar{margin-top:1.9em}</style></noscript>
+    <script async="" src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/full-anon.js"></script><link rel="stylesheet" href="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/clc.css" type="text/css"><script async="" src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/snippet-javascript.js"></script><script async="" src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/post-validation.js"></script><script async="" src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/prettify-full.js"></script><script async="" src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/external-editor.js"></script></head>
+        <body class="question-page unified-theme new-topbar">
+    <div id="notify-container"></div>
+    <div id="custom-header"></div>
+
+
+
+
+<header class="top-bar js-top-bar _fixed top-bar__network">
+    <div class="-container">
+        <div class="-main">
+                <a href="#" class="left-sidebar-toggle p0 ai-center jc-center js-left-sidebar-toggle"><span class="ps-relative"></span></a>
+                                <a href="https://stackoverflow.com/" class="-logo js-gps-track" data-gps-track="top_nav.click({is_current:false, location:2, destination:8})">
+                        <span class="-img _glyph">Stack Overflow</span>
+                    </a>
+
+
+
+        </div>
+
+            <form id="search" action="/search" method="get" class="searchbar js-searchbar " autocomplete="off" role="search">
+                    <div class="ps-relative">
+                        <input name="q" placeholder="Search…" autocomplete="off" maxlength="240" class="f-input js-search-field " type="text">
+                        <button type="submit" aria-label="Search..." class="s-btn s-btn__primary btn-topbar-primary js-search-submit"><svg aria-hidden="true" class="svg-icon mx0 iconSearch" width="18" height="18" viewBox="0 0 18 18"><path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"></path></svg></button>
+                    </div>
+            </form>
+
+        
+
+
+
+
+
+<ol class="-secondary js-secondary-topbar-links drop-icons-responsively the-js-is-handling-responsiveness">
+        <li class="-item searchbar-trigger js-searchbar-trigger"><a href="#" class="-link"><svg aria-hidden="true" class="svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18"><path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"></path></svg></a></li>
+            <li class="-item">
+        <a href="https://stackexchange.com/users/?tab=inbox" class="-link js-inbox-button" title="Recent inbox messages">
+            <svg aria-hidden="true" class="svg-icon iconInbox" width="20" height="18" viewBox="0 0 20 18"><path d="M15.19 1H4.63c-.85 0-1.6.54-1.85 1.35L0 10.79V15c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2v-4.21l-2.87-8.44A2 2 0 0 0 15.19 1zm-.28 10l-2 2h-6l-2-2H1.96L4.4 3.68A1 1 0 0 1 5.35 3h9.12a1 1 0 0 1 .95.68L17.86 11h-2.95z"></path></svg>
+            <span class="indicator-badge js-unread-count _important" style="display: none;"></span>
+        </a>
+    </li>
+    <li class="-item">
+        <a href="https://stackexchange.com/users/?tab=reputation" class="-link js-achievements-button" title="Recent achievements: reputation, badges, and privileges earned" data-unread-class="_highlighted-positive">
+            <svg aria-hidden="true" class="svg-icon iconAchievements" width="18" height="18" viewBox="0 0 18 18"><path d="M15 2V1H3v1H0v4c0 1.6 1.4 3 3 3v1c.4 1.5 3 2.6 5 3v2H5s-1 1.5-1 2h10c0-.4-1-2-1-2h-3v-2c2-.4 4.6-1.5 5-3V9c1.6-.2 3-1.4 3-3V2h-3zM3 7c-.5 0-1-.5-1-1V4h1v3zm8.4 2.5L9 8 6.6 9.4l1-2.7L5 5h3l1-2.7L10 5h2.8l-2.3 1.8 1 2.7h-.1zM16 6c0 .5-.5 1-1 1V4h1v2z"></path></svg>
+            <span class="indicator-badge js-unread-count _positive" style="display: none;"></span>
+        </a>
+    </li>
+
+    <li class="-item help-button-item" data-remove-order="1"><a href="#" class="-link js-help-button" title="Help Center and other resources">
+        <svg aria-hidden="true" class="svg-icon iconHelp" width="18" height="18" viewBox="0 0 18 18"><path d="M9 1a8 8 0 1 0 0 16A8 8 0 0 0 9 1zm.81 12.13c-.02.71-.55 1.15-1.24 1.13-.66-.02-1.17-.49-1.15-1.2.02-.72.56-1.18 1.22-1.16.7.03 1.2.51 1.17 1.23zM11.77 8a5.8 5.8 0 0 1-1.02.91l-.53.37c-.26.2-.42.43-.5.69a4 4 0 0 0-.09.75c0 .05-.03.16-.18.16H7.88c-.16 0-.18-.1-.18-.15.03-.66.12-1.21.4-1.66a5.29 5.29 0 0 1 1.43-1.22c.16-.12.28-.25.38-.39a1.34 1.34 0 0 0 .02-1.71c-.24-.31-.51-.46-1.03-.46-.51 0-.8.26-1.02.6-.21.33-.18.73-.18 1.1H5.75c0-1.38.35-2.25 1.1-2.76.52-.35 1.17-.5 1.93-.5 1 0 1.79.18 2.49.71.64.5.98 1.18.98 2.12 0 .57-.2 1.05-.48 1.44z"></path></svg>
+    </a></li>
+
+    <li class="-item">
+        <a href="https://stackexchange.com/" class="-link js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 174 Stack Exchange sites">
+            <svg aria-hidden="true" class="svg-icon iconStackExchange" width="18" height="18" viewBox="0 0 18 18"><path d="M1 13c0 1.1.9 2 2 2h8v3l3-3h1a2 2 0 0 0 2-2v-2H1v2zM15 1H3a2 2 0 0 0-2 2v2h16V3a2 2 0 0 0-2-2zM1 6h16v4H1V6z"></path></svg>
+        </a>
+    </li>
+
+            <li class="-ctas">
+                        <a href="https://stackoverflow.com/users/login?ssrc=head&amp;returnurl=https%3a%2f%2fstackoverflow.com%2fquestions%2f3138600%2fcorrect-use-of-stat-on-c" class="login-link s-btn btn-topbar-clear py8" rel="nofollow">Log In</a>
+                        <a href="https://stackoverflow.com/users/signup?ssrc=head&amp;returnurl=%2fusers%2fstory%2fcurrent" class="login-link s-btn s-btn__primary py8 btn-topbar-primary" rel="nofollow" data-ga="[&quot;sign up&quot;,&quot;Sign Up Navigation&quot;,&quot;Header&quot;,null,null]">Sign Up</a>
+
+            </li>
+
+    <li class="-dialog-container js-topbar-dialog-corral">
+
+
+    <div class="topbar-dialog siteSwitcher-dialog dno">
+        <div class="header">
+            <h3><a href="https://stackoverflow.com/">current community</a>
+            </h3>
+        </div>
+        <div class="modal-content current-site-container">
+            <ul class="current-site">
+                    <li class="grid">
+                            <div class="fl1">
+            <a href="https://stackoverflow.com/" class="current-site-link site-link js-gps-track grid gs8 gsx" data-id="1" data-gps-track="site_switcher.click({ item_type:3 })">
+        <div class="favicon favicon-stackoverflow site-icon grid--cell" title="Stack Overflow"></div>
+        <span class="grid--cell fl1">
+            Stack Overflow
+        </span>
+    </a>
+
+    </div>
+    <div class="related-links">
+            <a href="https://stackoverflow.com/help" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:14 })">help</a>
+                    <a href="https://chat.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+            </div>
+
+                    </li>
+                    <li class="related-site grid">
+                            <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                            <a href="https://meta.stackoverflow.com/" class="site-link js-gps-track grid gs8 gsx" data-id="552" data-gps-track="site.switch({ target_site:552, item_type:3 }),site_switcher.click({ item_type:4 })">
+        <div class="favicon favicon-stackoverflowmeta site-icon grid--cell" title="Meta Stack Overflow"></div>
+        <span class="grid--cell fl1">
+            Meta Stack Overflow
+        </span>
+    </a>
+
+                    </li>
+            </ul>
+        </div>
+
+        <div class="header" id="your-communities-header">
+            <h3>
+your communities            </h3>
+
+        </div>
+        <div class="modal-content" id="your-communities-section">
+
+                <div class="call-to-login">
+<a href="https://stackoverflow.com/users/signup?ssrc=site_switcher&amp;returnurl=%2fusers%2fstory%2fcurrent" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a> or <a href="https://stackoverflow.com/users/login?ssrc=site_switcher&amp;returnurl=https%3a%2f%2fstackoverflow.com%2fquestions%2f3138600%2fcorrect-use-of-stat-on-c" class="login-link js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a> to customize your list.
+                </div>
+        </div>
+
+        <div class="header">
+            <h3><a href="https://stackexchange.com/sites">more stack exchange communities</a>
+            </h3>
+            <a href="https://stackoverflow.blog/" class="fr">company blog</a>
+        </div>
+        <div class="modal-content">
+                <div class="child-content"></div>
+        </div>        
+    </div>
+            <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="https://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="https://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                        <li>
+                            <a href="https://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                                Meta
+                                <span class="item-summary">
+                                    Discuss the workings and policies of this site
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                                About Us
+                                <span class="item-summary">
+                                    Learn more about Stack Overflow the company
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.stackoverflowbusiness.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                                Business
+                                <span class="item-summary">
+                                    Learn more about hiring developers or posting ads with us
+                                </span>
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+                    <div class="topbar-dialog leftnav-dialog js-leftnav-dialog dno">
+                <div class="left-sidebar js-unpinned-left-sidebar" data-can-be="left-sidebar" data-is-here-when="sm"></div>
+            </div>
+    </li>
+</ol>
+
+    </div>
+</header>
+    <div id="js-gdpr-consent-banner" class="p16 bg-black-700 ff-sans fc-white ps-fixed b0 l0 r0 z-banner" role="banner" aria-hidden="false">
+        <div class="wmx8 mx-auto grid jc-center" role="alertdialog" aria-describedby="notice-message">
+            <div class="grid--cell mr12" aria-label="notice-message">
+                <p class="mb0 lh-lg">
+                    By using our site, you acknowledge that you have read and understand our <a class="s-link s-link__inherit td-underline fc-white" target="_blank" href="https://stackoverflow.com/legal/cookie-policy">Cookie Policy</a>, <a class="s-link s-link__inherit td-underline fc-white" target="_blank" href="https://stackoverflow.com/legal/privacy-policy">Privacy Policy</a>, and our <a class="s-link s-link__inherit td-underline fc-white" target="_blank" href="https://stackoverflow.com/legal/terms-of-service/public">Terms of Service</a>.
+                </p>
+            </div>
+            <a class="grid--cell fc-white js-notice-close" aria-label="notice-dismiss">
+                <svg aria-hidden="true" class="svg-icon m0 iconClear" width="18" height="18" viewBox="0 0 18 18"><path d="M15 4.41L13.59 3 9 7.59 4.41 3 3 4.41 7.59 9 3 13.59 4.41 15 9 10.41 13.59 15 15 13.59 10.41 9z"></path></svg>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        StackExchange.ready(function () { StackExchange.topbar.init({ observeSize: true }); });
+        StackExchange.scrollPadding.setPaddingTop(50, 10);     </script>
+
+
+    
+
+
+
+
+
+
+
+
+<div class="old-hero hero-container _fixed js-dismissable-hero" data-campaign-name="stk">
+    <div class="-container grid jc-sp-between ai-center md:fd-column md:pr32">
+        <div class="fl1 mr16 md:mb24">
+            <p class="-title"><strong>Join Stack Overflow</strong> to learn, share knowledge, and build your career.</p>
+        </div>
+
+        <div class="s-signup _hero fl1">
+            <div id="openid-buttons" class="-social ws-nowrap">
+                <a class="btn-outlined -white _medium _block" href="https://stackoverflow.com/users/signup?ssrc=hero&amp;returnurl=https%3a%2f%2fstackoverflow.com%2fquestions%2f3138600%2fcorrect-use-of-stat-on-c" rel="nofollow" data-ga="[&quot;sign up&quot;,&quot;Sign Up Navigation&quot;,&quot;Question Hero&quot;,null,null]">
+                        <span class="sm:d-none">Email Sign Up</span>
+                        <span class="d-none sm:d-inline">Sign Up</span>
+                    
+                </a>
+                <span class="-or sm:d-none">or sign in with</span>
+                    <div class="major-provider btn _block _medium sm:d-none _google" data-provider="google" data-oauthserver="https://accounts.google.com/o/oauth2/auth" data-oauthversion="2.0" data-ga="[&quot;sign up&quot;,&quot;Sign Up Started - Google&quot;,&quot;Question Hero&quot;,null,null]">
+<svg aria-hidden="true" class="svg-icon native iconGoogle" width="18" height="18" viewBox="0 0 18 18"><g><path d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" fill="#4285F4"></path><path d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z" fill="#34A853"></path><path d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z" fill="#FBBC05"></path><path d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z" fill="#EA4335"></path></g></svg>                                                Google
+                    </div>
+                    <div class="major-provider btn _block _medium sm:d-none _facebook" data-provider="facebook" data-oauthserver="https://www.facebook.com/v2.0/dialog/oauth" data-oauthversion="2.0" data-ga="[&quot;sign up&quot;,&quot;Sign Up Started - Facebook&quot;,&quot;Question Hero&quot;,null,null]">
+                        <svg aria-hidden="true" class="svg-icon iconFacebook" width="18" height="18" viewBox="0 0 18 18"><path d="M1.88 1C1.4 1 1 1.4 1 1.88v14.24c0 .48.4.88.88.88h7.67v-6.2H7.46V8.4h2.09V6.61c0-2.07 1.26-3.2 3.1-3.2.88 0 1.64.07 1.87.1v2.16h-1.29c-1 0-1.19.48-1.19 1.18V8.4h2.39l-.31 2.42h-2.08V17h4.08c.48 0 .88-.4.88-.88V1.88c0-.48-.4-.88-.88-.88H1.88z" fill="#3C5A96"></path></svg>                        Facebook
+                    </div>
+                                    <a href="#" class="js-dismiss -dismiss md:ps-absolute" title="dismiss"><svg aria-hidden="true" class="svg-icon iconClear" width="18" height="18" viewBox="0 0 18 18"><path d="M15 4.41L13.59 3 9 7.59 4.41 3 3 4.41 7.59 9 3 13.59 4.41 15 9 10.41 13.59 15 15 13.59 10.41 9z"></path></svg></a>
+            </div>
+
+            <form id="login-form" action="/users/signup?ssrc=hero&amp;returnurl=https%3a%2f%2fstackoverflow.com%2fquestions%2f3138600%2fcorrect-use-of-stat-on-c" method="POST">
+
+                <input name="fkey" value="568dec36cfd1821dc6ffe86cfc241edf515682757078a52fe753f54a23497be0" type="hidden">
+
+                <input name="ssrc" value="" type="hidden">
+
+                <input id="oauth_version" name="oauth_version" value="" type="hidden">
+                <input id="oauth_server" name="oauth_server" value="" type="hidden">
+
+                <div id="se-login-fields">
+                    <input name="legalLinksShown" value="0" type="hidden">
+                </div>
+            </form>
+            <script>
+                StackExchange.ready(function () {
+                    StackExchange.InlineAuth.init();
+                })
+            </script>
+        </div>
+    </div>
+</div><script>
+    StackExchange.ready(function () {
+        StackExchange.Hero.init("stk", "a");
+
+        var location = 0;
+        if ($("body").hasClass("questions-page")) {
+            location = 1;
+        } else if ($("body").hasClass("question-page")) {
+            location = 1;
+        } else if ($("body").hasClass("faq-page")) {
+            location = 5;
+        } else if ($("body").hasClass("home-page")) {
+            location = 3;
+        }
+
+        $('.js-cta-button').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: 'cta', location: location }, true);
+            });
+        });
+
+        // TODO: we should review the class names and whatnot in use here. Older heroes use id selectors, the newer
+        // sticky question hero on SO has a .js-dismiss class instead, but it's apparently not used anywhere... 
+        // It's not great. Ideally we'd have a set of classes in the partials above that would correspond to 
+        // the behaviours we want here in a more clear way. 
+
+        // sticky question-page hero at the bottom of the page on SO
+        $('.js-dismiss').on('click', function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close", location: location }, true);
+            });
+            StackExchange.Hero.dismiss();
+            $(".js-dismissable-hero").fadeOut("fast");
+        });
+    });
+</script>
+    <div class="container  ">
+                
+
+
+
+<div id="left-sidebar" data-is-here-when="md lg" class="left-sidebar js-pinned-left-sidebar">
+    <div class="left-sidebar--sticky-container js-sticky-leftnav">
+        <nav role="navigation">
+            <ol class="nav-links">
+                <li>    </li><li>
+        <a href="https://stackoverflow.com/" class="pl8 js-gps-track nav-links--link" data-gps-track="top_nav.click({is_current:false, location:2, destination:8})">
+Home        </a>
+    </li>
+
+                <li>
+                    <ol class="nav-links">
+                            <li class="fs-fine tt-uppercase ml8 mt16 mb4 fc-light">Public</li>
+                            <li class=" youarehere">
+        <a id="nav-questions" href="https://stackoverflow.com/questions" class="pl8 js-gps-track nav-links--link -link__with-icon" data-gps-track="top_nav.click({is_current:true, location:2, destination:1})">
+<svg aria-hidden="true" class="svg-icon iconGlobe" width="18" height="18" viewBox="0 0 18 18"><path d="M9 1a8 8 0 1 0 0 16A8 8 0 0 0 9 1zM8 15.32a6.4 6.4 0 0 1-5.23-7.75L7 11.68v.8c0 .88.12 1.32 1 1.32v1.52zm5.72-2c-.2-.66-1-1.32-1.72-1.32h-1v-2c0-.44-.56-1-1-1H6V7h1c.44 0 1-.56 1-1V5h2c.88 0 1.4-.72 1.4-1.6v-.33a6.4 6.4 0 0 1 2.32 10.24z"></path></svg>                <span class="-link--channel-name">Stack Overflow</span>
+        </a>
+    </li>
+
+    <li>
+        <a id="nav-tags" href="https://stackoverflow.com/tags" class=" js-gps-track nav-links--link" data-gps-track="top_nav.click({is_current:false, location:2, destination:2})">
+Tags        </a>
+    </li>
+    <li>
+        <a id="nav-users" href="https://stackoverflow.com/users" class=" js-gps-track nav-links--link" data-gps-track="top_nav.click({is_current:false, location:2, destination:3})">
+Users        </a>
+    </li>
+    <li>
+        <a id="nav-jobs" href="https://stackoverflow.com/jobs?med=site-ui&amp;ref=jobs-tab" class=" js-gps-track nav-links--link" data-gps-track="top_nav.click({is_current:false, location:2, destination:6})">
+Jobs        </a>
+    </li>
+                                            </ol>
+                </li>
+                    <li>
+                        <ol class="nav-links">
+                                <li class="p6">
+                                    <div class="ba bc-black-2 bar-sm p16 grid fd-column ps-relative overflow-hidden">
+                                        <strong class="grid--cell">Teams</strong>
+                                        <span class="grid--cell mt2 fs-caption fc-medium">Q&amp;A for work </span>
+                                        <a href="https://stackoverflow.com/teams" class="js-gps-track s-btn s-btn__outlined ta-center grid--cell mt12" data-gps-track="teams.create.left-sidenav.click" data-ga="[&quot;teams traffic&quot;,&quot;left nav cta&quot;,&quot;stackoverflow.com/teams&quot;,null,{&quot;dimension4&quot;:&quot;teams&quot;}]">
+                                            Learn More
+                                        </a>
+
+                                        <div class="ps-absolute t4 rn6">
+                                            <svg width="53" height="49" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M49 11l.2 31H18.9L9 49v-7H4V8h31" fill="#CCEAFF"></path><path d="M44.5 19v-.3l-.2-.1-18-13-.1-.1H.5v33h4V46l.8-.6 9.9-6.9h29.3V19z" stroke="#1060E1" stroke-miterlimit="10"></path><path d="M31 2l6-1.5 7 2V38H14.9L5 45v-7H1V6h25l5-4z" fill="#fff"></path><path d="M7 16.5h13m-13 6h14m-14 6h18" stroke="#1060E1" stroke-miterlimit="10"></path><path d="M39 30a14 14 0 1 0 0-28 14 14 0 0 0 0 28z" fill="#FFB935"></path><path d="M50.5 14a13.5 13.5 0 1 1-27 0 13.5 13.5 0 0 1 27 0z" stroke="#F48024" stroke-miterlimit="10"></path><path d="M32.5 21.5v-8h9v8h-9zm2-9.5V9.3A2.5 2.5 0 0 1 37 6.8a2.5 2.5 0 0 1 2.5 2.5V12h-5zm2 3v2m1-2v2" stroke="#fff" stroke-miterlimit="10"></path></svg>
+                                        </div>
+                                    </div>
+                                </li>
+                        </ol>
+                    </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+        <div id="content" class="snippet-hidden">
+
+
+            
+
+
+<div itemscope="" itemtype="http://schema.org/Question">
+    <link itemprop="image" href="https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+
+    <div class="inner-content clearfix">
+    
+    
+
+<style>.everyoneloves__top-leaderboard:empty,.everyoneloves__mid-leaderboard:empty{                height:90px;width:728px;box-sizing:border-box;
+}</style>
+        <div id="clc-tlb" class="everyonelovesstackoverflow everyoneloves__top-leaderboard tex2jax_ignore clc-cp-container"><div class="clc-cp-lb red"><a href="https://stackoverflow.com/jobs/companies/osram" data-clc-click="https://clc.stackoverflow.com/click?an=ATgAx_8KRnCpRpkw1kgF2JBSRgICAajIvwEbA7m4B8nzCbKREgMjABCCpJmQOfruXD8ACHpByyXWG_P0fw&amp;cr=297138&amp;ct=0&amp;url=https%3A%2F%2Fstackoverflow.com%2Fjobs%2Fcompanies%2Fosram%3Fmed=clc&amp;sig=qFzFVjjjM_cFlw" class="clc-cp-link" target="_blank"></a><div class="clc-cp-lb-back-pattern"><div class="clc-cp-lb-logo"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/uGafR.jpg" alt="OSRAM"></div><div class="clc-cp-lb-tagline"><div class="clc-cp-lb-openjobs red">We have 2 open jobs ♥</div><div class="clc-cp-lb-imagine"><span>Imagine yourself at OSRAM</span></div></div><div class="clc-cp-lb-learnmore"><a href="https://stackoverflow.com/jobs/companies/osram" data-clc-click="https://clc.stackoverflow.com/click?an=ATgAx_8KRnCpRpkw1kgF2JBSRgICAajIvwEbA7m4B8nzCbKREgMjABCCpJmQOfruXD8ACHpByyXWG_P0fw&amp;cr=297138&amp;ct=0&amp;url=https%3A%2F%2Fstackoverflow.com%2Fjobs%2Fcompanies%2Fosram%3Fmed=clc&amp;sig=qFzFVjjjM_cFlw" class="clc-cp-lb-learnmore-button red" target="_blank">Learn more</a></div></div></div><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/impression_003.gif" class="impression" style="display: none;"></div>            <div id="question-header" class="grid">
+                    <h1 itemprop="name" class="grid--cell fs-headline1 fl1"><a href="https://stackoverflow.com/questions/3138600/correct-use-of-stat-on-c" class="question-hyperlink">Correct use of Stat on C</a></h1>
+
+            
+
+
+
+<div class="pl8 aside-cta grid--cell" role="navigation" aria-label="ask new question">
+            <a href="https://stackoverflow.com/questions/ask" class="d-inline-flex ai-center ws-nowrap s-btn s-btn__primary">Ask Question</a>
+</div>
+
+        </div>
+            <div id="mainbar" role="main" aria-label="question and answers">
+
+            
+
+<div class="question" data-questionid="3138600" id="question">
+
+    
+    <div class="post-layout">
+            <div class="votecell post-layout--left">
+                
+
+<div class="vote">
+        <input name="_id_" value="3138600" type="hidden">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">10</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="#">favorite</a>
+        <div class="favoritecount"><b>7</b></div>
+
+
+
+</div>
+
+            </div>
+
+            
+<div class="postcell post-layout--right">
+    <div class="post-text" itemprop="text">
+
+<p>Why does this work :</p>
+
+<pre class="lang-c prettyprint prettyprinted" style=""><code><span class="kwd">char</span><span class="pln"> </span><span class="pun">*</span><span class="pln">fd </span><span class="pun">=</span><span class="pln"> </span><span class="str">"myfile.txt"</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">struct</span><span class="pln"> stat buf</span><span class="pun">;</span><span class="pln">          
+
+stat</span><span class="pun">(</span><span class="pln">fd</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">buf</span><span class="pun">);</span><span class="pln">
+</span><span class="typ">int</span><span class="pln"> size </span><span class="pun">=</span><span class="pln"> buf</span><span class="pun">.</span><span class="pln">st_size</span><span class="pun">;</span><span class="pln">
+
+printf</span><span class="pun">(</span><span class="str">"%d"</span><span class="pun">,</span><span class="pln">size</span><span class="pun">);</span></code></pre>
+
+<hr>
+
+<p>But this does not work:</p>
+
+<pre class="lang-c prettyprint prettyprinted" style=""><code><span class="kwd">char</span><span class="pln"> </span><span class="pun">*</span><span class="pln">fd </span><span class="pun">=</span><span class="pln"> </span><span class="str">"myfile.txt"</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">struct</span><span class="pln"> stat </span><span class="pun">*</span><span class="pln">buf</span><span class="pun">;</span><span class="pln">          
+
+stat</span><span class="pun">(</span><span class="pln">fd</span><span class="pun">,</span><span class="pln"> buf</span><span class="pun">);</span><span class="pln">
+</span><span class="typ">int</span><span class="pln"> size </span><span class="pun">=</span><span class="pln"> buf</span><span class="pun">-&gt;</span><span class="pln">st_size</span><span class="pun">;</span><span class="pln">
+
+printf</span><span class="pun">(</span><span class="str">"%d"</span><span class="pun">,</span><span class="pln">size</span><span class="pun">);</span></code></pre>
+    </div>
+
+        <div class="post-taglist grid gs4 gsy fd-column">
+            <div class="grid ps-relative d-block">
+                <a href="https://stackoverflow.com/questions/tagged/c" class="post-tag js-gps-track" title="show questions tagged 'c'" rel="tag">c</a> <a href="https://stackoverflow.com/questions/tagged/file" class="post-tag js-gps-track" title="show questions tagged 'file'" rel="tag">file</a> <a href="https://stackoverflow.com/questions/tagged/posix" class="post-tag js-gps-track" title="show questions tagged 'posix'" rel="tag">posix</a> 
+            </div>
+        </div>
+
+    <div class="mb0 ">
+        <div class="mt16 pt4 grid gs8 gsy fw-wrap jc-end ai-start">
+            <div class="grid--cell mr16" style="flex: 1 1 100px;">
+<div class="post-menu"><a href="https://stackoverflow.com/q/3138600" title="short permalink to this question" class="short-link" id="link-post-3138600">share</a><span class="lsep">|</span><a href="https://stackoverflow.com/posts/3138600/edit" class="suggest-edit-post" title="">improve this question</a></div>
+            </div>
+
+                <div class="post-signature grid--cell">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="https://stackoverflow.com/posts/3138600/revisions" title="show all edits to this post">edited <span title="2010-06-29 07:17:37Z" class="relativetime">Jun 29 '10 at 7:17</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="https://stackoverflow.com/users/212063/didier-trosset"><div class="gravatar-wrapper-32"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/5fa133f5a5d86d05305b520b831c871f.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="https://stackoverflow.com/users/212063/didier-trosset">Didier Trosset</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 26,700" dir="ltr">26.7k</span><span title="11 gold badges"><span class="badge1"></span><span class="badgecount">11</span></span><span title="61 silver badges"><span class="badge2"></span><span class="badgecount">61</span></span><span title="98 bronze badges"><span class="badge3"></span><span class="badgecount">98</span></span>
+        </div>
+    </div>
+</div>                </div>
+            <div class="post-signature owner grid--cell">
+<div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2010-06-29 07:15:05Z" class="relativetime">Jun 29 '10 at 7:15</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="https://stackoverflow.com/users/378733/necronet"><div class="gravatar-wrapper-32"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/d26b141a6d2d296b9e1520e04e123bc2.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="https://stackoverflow.com/users/378733/necronet">necronet</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">54</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="3 bronze badges"><span class="badge3"></span><span class="badgecount">3</span></span>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+                
+    <div class="post-layout--right">
+	    <div id="comments-3138600" class="comments js-comments-container ">
+            <ul class="comments-list js-comments-list" data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+    <li id="comment-3224611" class="comment js-comment " data-comment-id="3224611">
+        <div class="js-comment-actions comment-actions">
+            <div class="comment-score">
+                    <span title="number of 'useful comment' votes received" class="hot">25</span>
+            </div>
+                    </div>
+        <div class="comment-text js-comment-text-and-form">
+            <div class="comment-body" style="display: block;">
+                <span class="comment-copy">please, don't use fd as var name for something that is not a file descriptor.</span>
+                    –&nbsp;<a href="https://stackoverflow.com/users/371250/ninjalj" title="34,278 reputation" class="comment-user">ninjalj</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment3224611_3138600"><span title="2010-06-29 07:39:00Z" class="relativetime-clean">Jun 29 '10 at 7:39</span></a></span>
+                                                                            </div>
+        </div>
+    </li>
+    <li id="comment-3225003" class="comment js-comment " data-comment-id="3225003">
+        <div class="js-comment-actions comment-actions">
+            <div class="comment-score">
+                    <span title="number of 'useful comment' votes received" class="cool">3</span>
+            </div>
+                    </div>
+        <div class="comment-text js-comment-text-and-form">
+            <div class="comment-body" style="display: block;">
+                <span class="comment-copy">If you compile with <code>-Wall -O</code>, you'll get this warning from gcc: <code>warning: ‘buf’ is used uninitialized in this function</code>.</span>
+                    –&nbsp;<a href="https://stackoverflow.com/users/134633/caf" title="186,819 reputation" class="comment-user">caf</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment3225003_3138600"><span title="2010-06-29 08:43:19Z" class="relativetime-clean">Jun 29 '10 at 8:43</span></a></span>
+                                                                            </div>
+        </div>
+    </li>
+    <li id="comment-3227622" class="comment js-comment " data-comment-id="3227622">
+        <div class="js-comment-actions comment-actions">
+            <div class="comment-score">
+            </div>
+                    </div>
+        <div class="comment-text js-comment-text-and-form">
+            <div class="comment-body" style="display: block;">
+                <span class="comment-copy">Although the memory 
+allocation issues are most critical, you should not be paying any 
+attention to the contents of buf (or the structure pointed to by buf) 
+until you know that 'stat()' succeeded - which you determine by checking
+ the value it returns.  If it fails, the contents of buf are 
+meaningless.</span>
+                    –&nbsp;<a href="https://stackoverflow.com/users/15168/jonathan-leffler" title="548,317 reputation" class="comment-user">Jonathan Leffler</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment3227622_3138600"><span title="2010-06-29 13:58:31Z" class="relativetime-clean">Jun 29 '10 at 13:58</span></a></span>
+                                                                            </div>
+        </div>
+    </li>
+    <li id="comment-3232282" class="comment js-comment " data-comment-id="3232282">
+        <div class="js-comment-actions comment-actions">
+            <div class="comment-score">
+            </div>
+                    </div>
+        <div class="comment-text js-comment-text-and-form">
+            <div class="comment-body" style="display: block;">
+                <span class="comment-copy">This is separate from your 
+main bug, storing buf.st_size in a variable of type int is not valid. It
+ can overflow (which has undefined behavior), but even with the normal 
+overflow behavior, your code will break if it encounters large files. 
+You need to use off_t or a type you know is larger, and then cast it to a
+ type you know how to print (for instance uintmax_t with the %ju format 
+specifier) when you call printf.</span>
+                    –&nbsp;<a href="https://stackoverflow.com/users/379897/r" title="151,914 reputation" class="comment-user">R..</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment3232282_3138600"><span title="2010-06-29 22:56:57Z" class="relativetime-clean">Jun 29 '10 at 22:56</span></a></span>
+                                                                            </div>
+        </div>
+    </li>
+    <li id="comment-65202944" class="comment js-comment " data-comment-id="65202944">
+        <div class="js-comment-actions comment-actions">
+            <div class="comment-score">
+            </div>
+                    </div>
+        <div class="comment-text js-comment-text-and-form">
+            <div class="comment-body" style="display: block;">
+                <span class="comment-copy">do not use st_size without 
+first checking the return value of stats functions, if it returns -1, 
+the st_size may have invalid values..</span>
+                    –&nbsp;<a href="https://stackoverflow.com/users/1185422/ahmed" title="5,062 reputation" class="comment-user">Ahmed</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment65202944_3138600"><span title="2016-08-12 17:01:47Z" class="relativetime-clean">Aug 12 '16 at 17:01</span></a></span>
+                                                                            </div>
+        </div>
+    </li>
+            </ul>
+	    </div>
+
+        <div id="comments-link-3138600" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#" onclick=""></a>
+        </div>         
+    </div>        </div>
+</div>
+
+
+<div id="dfp-isb" class="everyonelovesstackoverflow everyoneloves__inline-sidebar"></div>
+        <div id="answers">
+
+                <a name="tab-top"></a>
+                <div id="answers-header">
+                    <div class="subheader answers-subheader">
+                        <h2 data-answercount="6">
+                                6 Answers
+                                <span style="display:none;" itemprop="answerCount">6</span>
+                        </h2>
+                        <div>
+                            
+<div id="tabs">
+        <a href="https://stackoverflow.com/questions/3138600/correct-use-of-stat-on-c?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active" data-shortcut="A">
+            active</a>
+        <a href="https://stackoverflow.com/questions/3138600/correct-use-of-stat-on-c?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest" data-shortcut="O">
+            oldest</a>
+        <a class="youarehere is-selected " href="https://stackoverflow.com/questions/3138600/correct-use-of-stat-on-c?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes" data-shortcut="V">
+            votes</a>
+    </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+  
+<a name="3138623"></a>
+<div id="answer-3138623" class="answer" data-answerid="3138623" itemscope="" itemtype="http://schema.org/Answer">
+    <div class="post-layout">
+            <div class="votecell post-layout--left">
+                
+
+<div class="vote">
+        <input name="_id_" value="3138623" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">22</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+
+</div>
+
+            </div>
+            
+
+
+<div class="answercell post-layout--right">
+    <div class="post-text" itemprop="text">
+<p>The reason for it not working is that buf in the first example is 
+allocated on the stack.
+In the Second example you only have a pointer to a struct stat, pointing
+ to anywhere (probably pointing to address 0x0, i.e. a NULL pointer), 
+you need to allocate memory for it like this:</p>
+
+<pre class="lang-c prettyprint prettyprinted" style=""><code><span class="pln">buf </span><span class="pun">=</span><span class="pln"> malloc</span><span class="pun">(</span><span class="kwd">sizeof</span><span class="pun">(</span><span class="kwd">struct</span><span class="pln"> stat</span><span class="pun">));</span></code></pre>
+
+<p>Then both examples should work. When using <code>malloc()</code>, always remember to use <code>free()</code> after you are finished with using the <code>struct stat</code>:</p>
+
+<pre class="lang-c prettyprint prettyprinted" style=""><code><span class="pln">free</span><span class="pun">(</span><span class="pln">buf</span><span class="pun">);</span></code></pre>
+    </div>
+    <div class="grid mb0 fw-wrap ai-start jc-end gs8 gsy">
+    <div class="grid--cell mr16" style="flex: 1 1 100px;">
+<div class="post-menu"><a href="https://stackoverflow.com/a/3138623" title="short permalink to this answer" class="short-link" id="link-post-3138623">share</a><span class="lsep">|</span><a href="https://stackoverflow.com/posts/3138623/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </div>
+    <div class="post-signature grid--cell fl0">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="https://stackoverflow.com/posts/3138623/revisions" title="show all edits to this post">edited <span title="2015-10-16 15:23:04Z" class="relativetime">Oct 16 '15 at 15:23</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="https://stackoverflow.com/users/2597135/uli-k%c3%b6hler"><div class="gravatar-wrapper-32"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/9b8c6248f917c92724a033de96708542.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="https://stackoverflow.com/users/2597135/uli-k%c3%b6hler">Uli Köhler</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">8,470</span><span title="7 gold badges"><span class="badge1"></span><span class="badgecount">7</span></span><span title="39 silver badges"><span class="badge2"></span><span class="badgecount">39</span></span><span title="83 bronze badges"><span class="badge3"></span><span class="badgecount">83</span></span>
+        </div>
+    </div>
+</div>    </div>
+            
+
+
+    <div class="post-signature grid--cell fl0">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-06-29 07:19:51Z" class="relativetime">Jun 29 '10 at 7:19</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="https://stackoverflow.com/users/197095/puppe"><div class="gravatar-wrapper-32"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/09b9683cc8ae3f65cce3c07d4435bfcf.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="https://stackoverflow.com/users/197095/puppe">Puppe</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">3,944</span><span title="18 silver badges"><span class="badge2"></span><span class="badgecount">18</span></span><span title="26 bronze badges"><span class="badge3"></span><span class="badgecount">26</span></span>
+        </div>
+    </div>
+</div>
+
+    </div>
+    </div>
+</div>
+    
+    <div class="post-layout--right">
+	    <div id="comments-3138623" class="comments js-comments-container ">
+            <ul class="comments-list js-comments-list" data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+    <li id="comment-3224503" class="comment js-comment " data-comment-id="3224503">
+        <div class="js-comment-actions comment-actions">
+            <div class="comment-score">
+                    <span title="number of 'useful comment' votes received" class="warm">14</span>
+            </div>
+                    </div>
+        <div class="comment-text js-comment-text-and-form">
+            <div class="comment-body" style="display: block;">
+                <span class="comment-copy">(But don't forget to <code>free()</code> it afterwards.)</span>
+                    –&nbsp;<a href="https://stackoverflow.com/users/148870/amber" title="337,986 reputation" class="comment-user">Amber</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment3224503_3138623"><span title="2010-06-29 07:21:01Z" class="relativetime-clean">Jun 29 '10 at 7:21</span></a></span>
+                                                                            </div>
+        </div>
+    </li>
+            </ul>
+	    </div>
+
+        <div id="comments-link-3138623" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#" onclick=""></a>
+        </div>         
+    </div>    </div>
+</div>
+<div id="clc-mlb" class="everyonelovesstackoverflow everyoneloves__mid-leaderboard tex2jax_ignore clc-cp-container"><div class="clc-cp-lb red"><a href="https://stackoverflow.com/jobs/companies/osram" data-clc-click="https://clc.stackoverflow.com/click?an=ATgAx_8K7oGqRpkw1kgF2JBSRgICAqjIvwEbA7m4B8nzCbKREgMjABCCpJmQOfruXD8AvfMDvAtxVBEA4g&amp;cr=297138&amp;ct=0&amp;url=https%3A%2F%2Fstackoverflow.com%2Fjobs%2Fcompanies%2Fosram%3Fmed=clc&amp;sig=zHemhjPob7jx0A" class="clc-cp-link" target="_blank"></a><div class="clc-cp-lb-back-pattern"><div class="clc-cp-lb-logo"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/uGafR.jpg" alt="OSRAM"></div><div class="clc-cp-lb-tagline"><div class="clc-cp-lb-openjobs red">We have 2 open jobs ♥</div><div class="clc-cp-lb-imagine"><span>Imagine yourself at OSRAM</span></div></div><div class="clc-cp-lb-learnmore"><a href="https://stackoverflow.com/jobs/companies/osram" data-clc-click="https://clc.stackoverflow.com/click?an=ATgAx_8K7oGqRpkw1kgF2JBSRgICAqjIvwEbA7m4B8nzCbKREgMjABCCpJmQOfruXD8AvfMDvAtxVBEA4g&amp;cr=297138&amp;ct=0&amp;url=https%3A%2F%2Fstackoverflow.com%2Fjobs%2Fcompanies%2Fosram%3Fmed=clc&amp;sig=zHemhjPob7jx0A" class="clc-cp-lb-learnmore-button red" target="_blank">Learn more</a></div></div></div><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/impression.gif" class="impression" style="display: none;"></div>
+  
+<a name="3138754"></a>
+<div id="answer-3138754" class="answer" data-answerid="3138754" itemscope="" itemtype="http://schema.org/Answer">
+    <div class="post-layout">
+            <div class="votecell post-layout--left">
+                
+
+<div class="vote">
+        <input name="_id_" value="3138754" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">10</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+
+</div>
+
+            </div>
+            
+
+
+<div class="answercell post-layout--right">
+    <div class="post-text" itemprop="text">
+<p>It is just a simple memory allocation problem.</p>
+
+<pre class="lang-c prettyprint prettyprinted" style=""><code><span class="kwd">char</span><span class="pln"> </span><span class="pun">*</span><span class="pln">fd </span><span class="pun">=</span><span class="pln"> </span><span class="str">"myfile.txt"</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">struct</span><span class="pln"> stat </span><span class="pun">*</span><span class="pln">buf</span><span class="pun">;</span><span class="pln">          
+
+stat</span><span class="pun">(</span><span class="pln">fd</span><span class="pun">,</span><span class="pln"> buf</span><span class="pun">);</span><span class="pln">
+</span><span class="typ">int</span><span class="pln"> size </span><span class="pun">=</span><span class="pln"> buf</span><span class="pun">-&gt;</span><span class="pln">st_size</span><span class="pun">;</span><span class="pln">
+
+printf</span><span class="pun">(</span><span class="str">"%d"</span><span class="pun">,</span><span class="pln">size</span><span class="pun">);</span></code></pre>
+
+<p>The above code only declares a pointer, but in reality, there is no memory space allocated.</p>
+
+<p>you should modify the code to look like this:</p>
+
+<pre class="lang-c prettyprint prettyprinted" style=""><code><span class="kwd">char</span><span class="pln"> </span><span class="pun">*</span><span class="pln">fd </span><span class="pun">=</span><span class="pln"> </span><span class="str">"myfile.txt"</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">struct</span><span class="pln"> stat </span><span class="pun">*</span><span class="pln">buf</span><span class="pun">;</span><span class="pln">
+
+buf </span><span class="pun">=</span><span class="pln"> malloc</span><span class="pun">(</span><span class="kwd">sizeof</span><span class="pun">(</span><span class="kwd">struct</span><span class="pln"> stat</span><span class="pun">));</span><span class="pln">
+
+stat</span><span class="pun">(</span><span class="pln">fd</span><span class="pun">,</span><span class="pln"> buf</span><span class="pun">);</span><span class="pln">
+</span><span class="typ">int</span><span class="pln"> size </span><span class="pun">=</span><span class="pln"> buf</span><span class="pun">-&gt;</span><span class="pln">st_size</span><span class="pun">;</span><span class="pln">
+printf</span><span class="pun">(</span><span class="str">"%d"</span><span class="pun">,</span><span class="pln">size</span><span class="pun">);</span><span class="pln">
+
+free</span><span class="pun">(</span><span class="pln">buf</span><span class="pun">);</span></code></pre>
+
+<p>This will allocate the memory, and free after it is used.</p>
+    </div>
+    <div class="grid mb0 fw-wrap ai-start jc-end gs8 gsy">
+    <div class="grid--cell mr16" style="flex: 1 1 100px;">
+<div class="post-menu"><a href="https://stackoverflow.com/a/3138754" title="short permalink to this answer" class="short-link" id="link-post-3138754">share</a><span class="lsep">|</span><a href="https://stackoverflow.com/posts/3138754/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </div>
+    <div class="post-signature grid--cell fl0">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="https://stackoverflow.com/posts/3138754/revisions" title="show all edits to this post">edited <span title="2011-02-05 09:50:00Z" class="relativetime">Feb 5 '11 at 9:50</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </div>
+            
+
+
+    <div class="post-signature grid--cell fl0">
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-06-29 07:42:51Z" class="relativetime">Jun 29 '10 at 7:42</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="https://stackoverflow.com/users/228575/anjum-kaiser"><div class="gravatar-wrapper-32"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/qpSh0.jpg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="https://stackoverflow.com/users/228575/anjum-kaiser">Anjum Kaiser</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">2,344</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="13 silver badges"><span class="badge2"></span><span class="badgecount">13</span></span><span title="17 bronze badges"><span class="badge3"></span><span class="badgecount">17</span></span>
+        </div>
+    </div>
+</div>
+
+    </div>
+    </div>
+</div>
+    
+    <div class="post-layout--right">
+	    <div id="comments-3138754" class="comments js-comments-container  dno">
+            <ul class="comments-list js-comments-list" data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+            </ul>
+	    </div>
+
+        <div id="comments-link-3138754" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#" onclick=""></a>
+        </div>         
+    </div>    </div>
+</div>
+
+  
+<a name="3138635"></a>
+<div id="answer-3138635" class="answer" data-answerid="3138635" itemscope="" itemtype="http://schema.org/Answer">
+    <div class="post-layout">
+            <div class="votecell post-layout--left">
+                
+
+<div class="vote">
+        <input name="_id_" value="3138635" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+
+</div>
+
+            </div>
+            
+
+
+<div class="answercell post-layout--right">
+    <div class="post-text" itemprop="text">
+<p>In the second, you use a pointer pointing to you-dont-know-where. <code>stat</code>
+ will by chance be able to correctly fill the values in the area pointed
+ (your program could have terminated abruptly here). Then, as you have 
+no idea on where this data is, you use it <code>buf-&gt;st_size</code> but maybe someone has used this memory area that you don't own.</p>
+    </div>
+    <div class="grid mb0 fw-wrap ai-start jc-end gs8 gsy">
+    <div class="grid--cell mr16" style="flex: 1 1 100px;">
+<div class="post-menu"><a href="https://stackoverflow.com/a/3138635" title="short permalink to this answer" class="short-link" id="link-post-3138635">share</a><span class="lsep">|</span><a href="https://stackoverflow.com/posts/3138635/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </div>
+            
+
+
+    <div class="post-signature grid--cell fl0">
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-06-29 07:21:11Z" class="relativetime">Jun 29 '10 at 7:21</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="https://stackoverflow.com/users/212063/didier-trosset"><div class="gravatar-wrapper-32"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/5fa133f5a5d86d05305b520b831c871f.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="https://stackoverflow.com/users/212063/didier-trosset">Didier Trosset</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 26,700" dir="ltr">26.7k</span><span title="11 gold badges"><span class="badge1"></span><span class="badgecount">11</span></span><span title="61 silver badges"><span class="badge2"></span><span class="badgecount">61</span></span><span title="98 bronze badges"><span class="badge3"></span><span class="badgecount">98</span></span>
+        </div>
+    </div>
+</div>
+
+    </div>
+    </div>
+</div>
+    
+    <div class="post-layout--right">
+	    <div id="comments-3138635" class="comments js-comments-container  dno">
+            <ul class="comments-list js-comments-list" data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+            </ul>
+	    </div>
+
+        <div id="comments-link-3138635" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#" onclick=""></a>
+        </div>         
+    </div>    </div>
+</div>
+
+  
+<a name="3138843"></a>
+<div id="answer-3138843" class="answer" data-answerid="3138843" itemscope="" itemtype="http://schema.org/Answer">
+    <div class="post-layout">
+            <div class="votecell post-layout--left">
+                
+
+<div class="vote">
+        <input name="_id_" value="3138843" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+
+</div>
+
+            </div>
+            
+
+
+<div class="answercell post-layout--right">
+    <div class="post-text" itemprop="text">
+<p>It's a big difference between creating a structure or a pointer to a 
+structure. The first code creates the structure, the second creates a 
+pointer, to a not existing structure. Using malloc or calloc you can 
+allocate memory and your structure will be initialized. After this you 
+do whatever you want and at the moment when you don't need this 
+structure anymore, you must use the free() function to free the 
+allocated space.</p>
+    </div>
+    <div class="grid mb0 fw-wrap ai-start jc-end gs8 gsy">
+    <div class="grid--cell mr16" style="flex: 1 1 100px;">
+<div class="post-menu"><a href="https://stackoverflow.com/a/3138843" title="short permalink to this answer" class="short-link" id="link-post-3138843">share</a><span class="lsep">|</span><a href="https://stackoverflow.com/posts/3138843/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </div>
+            
+
+
+    <div class="post-signature grid--cell fl0">
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-06-29 07:58:27Z" class="relativetime">Jun 29 '10 at 7:58</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="https://stackoverflow.com/users/355970/lajos-arpad"><div class="gravatar-wrapper-32"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/512c29ca564206454b0c9443732c1eb5.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="https://stackoverflow.com/users/355970/lajos-arpad">Lajos Arpad</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">216</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="10 bronze badges"><span class="badge3"></span><span class="badgecount">10</span></span>
+        </div>
+    </div>
+</div>
+
+    </div>
+    </div>
+</div>
+    
+    <div class="post-layout--right">
+	    <div id="comments-3138843" class="comments js-comments-container  dno">
+            <ul class="comments-list js-comments-list" data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+            </ul>
+	    </div>
+
+        <div id="comments-link-3138843" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#" onclick=""></a>
+        </div>         
+    </div>    </div>
+</div>
+
+  
+<a name="3138859"></a>
+<div id="answer-3138859" class="answer" data-answerid="3138859" itemscope="" itemtype="http://schema.org/Answer">
+    <div class="post-layout">
+            <div class="votecell post-layout--left">
+                
+
+<div class="vote">
+        <input name="_id_" value="3138859" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+
+</div>
+
+            </div>
+            
+
+
+<div class="answercell post-layout--right">
+    <div class="post-text" itemprop="text">
+<p>You haven't allocated any memory for your pointer dude.</p>
+
+<p>You should allocate memory to buf.</p>
+
+<pre class="lang-c prettyprint prettyprinted" style=""><code><span class="pln">buf </span><span class="pun">=</span><span class="pln"> malloc</span><span class="pun">(</span><span class="kwd">sizeof</span><span class="pun">(</span><span class="kwd">struct</span><span class="pln"> stat</span><span class="pun">));</span></code></pre>
+
+<p>now it will work.</p>
+    </div>
+    <div class="grid mb0 fw-wrap ai-start jc-end gs8 gsy">
+    <div class="grid--cell mr16" style="flex: 1 1 100px;">
+<div class="post-menu"><a href="https://stackoverflow.com/a/3138859" title="short permalink to this answer" class="short-link" id="link-post-3138859">share</a><span class="lsep">|</span><a href="https://stackoverflow.com/posts/3138859/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </div>
+            
+
+
+    <div class="post-signature grid--cell fl0">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-06-29 08:01:39Z" class="relativetime">Jun 29 '10 at 8:01</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="https://stackoverflow.com/users/268724/kumar-alok"><div class="gravatar-wrapper-32"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/5694695ff31013ef30e28599e1876239.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="https://stackoverflow.com/users/268724/kumar-alok">Kumar Alok</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1,241</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="18 silver badges"><span class="badge2"></span><span class="badgecount">18</span></span><span title="29 bronze badges"><span class="badge3"></span><span class="badgecount">29</span></span>
+        </div>
+    </div>
+</div>
+
+    </div>
+    </div>
+</div>
+    
+    <div class="post-layout--right">
+	    <div id="comments-3138859" class="comments js-comments-container  dno">
+            <ul class="comments-list js-comments-list" data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+            </ul>
+	    </div>
+
+        <div id="comments-link-3138859" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#" onclick=""></a>
+        </div>         
+    </div>    </div>
+</div>
+
+  
+<a name="18426359"></a>
+<div id="answer-18426359" class="answer" data-answerid="18426359" itemscope="" itemtype="http://schema.org/Answer">
+    <div class="post-layout">
+            <div class="votecell post-layout--left">
+                
+
+<div class="vote">
+        <input name="_id_" value="18426359" type="hidden">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+
+</div>
+
+            </div>
+            
+
+
+<div class="answercell post-layout--right">
+    <div class="post-text" itemprop="text">
+<p>This should fix your problem and another: file size can be either a 32 or 64-bit int. This example assumes a 64-bit machine.</p>
+
+<pre class="lang-c prettyprint prettyprinted" style=""><code><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;stat.h&gt;</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;errno.h&gt;</span><span class="pln">
+
+</span><span class="kwd">char</span><span class="pln"> </span><span class="pun">*</span><span class="pln">file </span><span class="pun">=</span><span class="pln"> </span><span class="str">"myfile.txt"</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">long</span><span class="pln"> </span><span class="kwd">long</span><span class="pln"> size</span><span class="pun">;</span><span class="pln"> </span><span class="com">//st_size can be a 64-bit int.</span><span class="pln">
+</span><span class="kwd">struct</span><span class="pln"> stat </span><span class="pun">*</span><span class="pln">buf </span><span class="pun">=</span><span class="pln"> malloc</span><span class="pun">(</span><span class="kwd">sizeof</span><span class="pun">(</span><span class="kwd">struct</span><span class="pln"> stat</span><span class="pun">));</span><span class="pln"> </span><span class="com">//allocates memory for stat structure.</span><span class="pln">
+errno </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> </span><span class="com">//always set errno to zero first.</span><span class="pln">
+
+</span><span class="kwd">if</span><span class="pun">(</span><span class="pln">stat</span><span class="pun">(</span><span class="pln">file</span><span class="pun">,</span><span class="pln"> buf</span><span class="pun">)</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    size </span><span class="pun">=</span><span class="pln"> buf</span><span class="pun">-&gt;</span><span class="pln">st_size</span><span class="pun">;</span><span class="pln">
+    printf</span><span class="pun">(</span><span class="str">"Size of \"%s\" is %lld bytes.\n"</span><span class="pun">,</span><span class="pln"> file</span><span class="pun">,</span><span class="pln"> size</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="kwd">else</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    perror</span><span class="pun">(</span><span class="pln">file</span><span class="pun">);</span><span class="pln">    </span><span class="com">//if stat fails, print a diagnostic.</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+    </div>
+    <div class="grid mb0 fw-wrap ai-start jc-end gs8 gsy">
+    <div class="grid--cell mr16" style="flex: 1 1 100px;">
+<div class="post-menu"><a href="https://stackoverflow.com/a/18426359" title="short permalink to this answer" class="short-link" id="link-post-18426359">share</a><span class="lsep">|</span><a href="https://stackoverflow.com/posts/18426359/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </div>
+    <div class="post-signature grid--cell fl0">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="https://stackoverflow.com/posts/18426359/revisions" title="show all edits to this post">edited <span title="2015-04-23 20:30:26Z" class="relativetime">Apr 23 '15 at 20:30</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </div>
+            
+
+
+    <div class="post-signature grid--cell fl0">
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-08-25 06:24:19Z" class="relativetime">Aug 25 '13 at 6:24</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="https://stackoverflow.com/users/144657/cyberskull"><div class="gravatar-wrapper-32"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/f11d41e3d36e1d688de7ed4fe7b50aad.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="https://stackoverflow.com/users/144657/cyberskull">CyberSkull</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">524</span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
+        </div>
+    </div>
+</div>
+
+    </div>
+    </div>
+</div>
+    
+    <div class="post-layout--right">
+	    <div id="comments-18426359" class="comments js-comments-container ">
+            <ul class="comments-list js-comments-list" data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+    <li id="comment-47783215" class="comment js-comment " data-comment-id="47783215">
+        <div class="js-comment-actions comment-actions">
+            <div class="comment-score">
+            </div>
+                    </div>
+        <div class="comment-text js-comment-text-and-form">
+            <div class="comment-body" style="display: block;">
+                <span class="comment-copy">stuct = struct.  Thanks for your code.</span>
+                    –&nbsp;<a href="https://stackoverflow.com/users/518879/danger89" title="1,469 reputation" class="comment-user">danger89</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment47783215_18426359"><span title="2015-04-23 15:48:43Z" class="relativetime-clean">Apr 23 '15 at 15:48</span></a></span>
+                                                                            </div>
+        </div>
+    </li>
+            </ul>
+	    </div>
+
+        <div id="comments-link-18426359" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href="#" onclick=""></a>
+        </div>         
+    </div>    </div>
+</div>
+                                    <a name="new-answer"></a>
+                        <form id="post-form" action="/questions/3138600/answer/submit" method="post" class="post-form">
+                            <input id="post-id" value="3138600" type="hidden">
+                            <input id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" type="hidden">
+                            <input name="referrer" value="https://www.google.fr/" type="hidden">
+                            <h2 class="space">Your Answer</h2>
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        var channelOptions = {
+            tags: "".split(" "),
+            id: "1"
+        };
+        initTagRenderer("".split(" "), "".split(" "), channelOptions);
+       
+        StackExchange.using("externalEditor", function() {
+                // Have to fire editor after snippets, if snippets enabled
+                if (StackExchange.settings.snippets.snippetsEnabled) {
+                    StackExchange.using("snippets", function() {
+                        createEditor();
+                    });
+                }
+                else {
+                    createEditor();
+                }
+            });
+
+            function createEditor() {
+                StackExchange.prepareEditor({
+                    heartbeatType: 'answer',
+                convertImagesToLinks: true,
+                noModals: false,
+                showLowRepImageUploadWarning: true,
+                reputationToPostImages: 10,
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: true,
+                    discardSelector: ".discard-answer"
+                    ,immediatelyShowMarkdownHelp:true
+                    });
+                
+
+        }
+    });
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor wz-element" data-wz-state="3,4,5,6,7,8">
+
+    <div style="position: relative;"> 
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar btr-sm"><ul id="wmd-button-row" class="wmd-button-row"><li id="wmd-bold-button" class="wmd-button" style="left: 0px;"><span style="background-position: 0px -20px;"></span></li><li id="wmd-italic-button" class="wmd-button" style="left: 25px;"><span style="background-position: -20px -20px;"></span></li><li id="wmd-spacer1" class="wmd-spacer" style="left: 50px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-link-button" class="wmd-button" style="left: 75px;"><span style="background-position: -40px -20px;"></span></li><li id="wmd-quote-button" class="wmd-button" style="left: 100px;"><span style="background-position: -60px -20px;"></span></li><li id="wmd-code-button" class="wmd-button" style="left: 125px;"><span style="background-position: -80px -20px;"></span></li><li id="wmd-image-button" class="wmd-button" style="left: 150px;"><span style="background-position: -100px -20px;"></span></li><li id="wmd-spacer2" class="wmd-spacer" style="left: 175px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-olist-button" class="wmd-button" style="left: 200px;"><span style="background-position: -120px -20px;"></span></li><li id="wmd-ulist-button" class="wmd-button" style="left: 225px;"><span style="background-position: -140px -20px;"></span></li><li id="wmd-heading-button" class="wmd-button" style="left: 250px;"><span style="background-position: -160px -20px;"></span></li><li id="wmd-hr-button" class="wmd-button" style="left: 275px;"><span style="background-position: -180px -20px;"></span></li><li id="wmd-spacer3" class="wmd-spacer" style="left: 300px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-undo-button" class="wmd-button" style="left: 325px;"><span style="background-position: -200px -20px;"></span></li><li id="wmd-redo-button" class="wmd-button" style="left: 350px;"><span style="background-position: -220px -20px;"></span></li><li class="wmd-spacer wmd-spacer-max"></li></ul></div>
+                        <div class="js-stacks-validation">
+                <div class="ps-relative">
+                    <textarea id="wmd-input" class="wmd-input wz-element s-input bar0" name="post-text" cols="92" rows="15" tabindex="101" data-wz-state="8" data-min-length=""></textarea>
+                </div>
+                <div class="s-input-message mt4 d-none js-stacks-validation-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="568dec36cfd1821dc6ffe86cfc241edf515682757078a52fe753f54a23497be0" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+
+                            <div style="position: relative;">
+                                
+                                            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="https://stackoverflow.com/users/login?ssrc=question_page&amp;returnurl=https%3a%2f%2fstackoverflow.com%2fquestions%2f3138600%2fcorrect-use-of-stat-on-c%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login" data-ga="[&quot;sign up&quot;,&quot;Sign Up Started - Google&quot;,&quot;New Post&quot;,null,null]">
+                            <svg aria-hidden="true" class="svg-icon native iconGoogle" width="18" height="18" viewBox="0 0 18 18"><g><path d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" fill="#4285F4"></path><path d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z" fill="#34A853"></path><path d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z" fill="#FBBC05"></path><path d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z" fill="#EA4335"></path></g></svg> Sign up using Google
+                        </div>
+                        <div class="preferred-login facebook-login" data-ga="[&quot;sign up&quot;,&quot;Sign Up Started - Facebook&quot;,&quot;New Post&quot;,null,null]">
+                            <svg aria-hidden="true" class="svg-icon iconFacebook" width="18" height="18" viewBox="0 0 18 18"><path d="M1.88 1C1.4 1 1 1.4 1 1.88v14.24c0 .48.4.88.88.88h7.67v-6.2H7.46V8.4h2.09V6.61c0-2.07 1.26-3.2 3.1-3.2.88 0 1.64.07 1.87.1v2.16h-1.29c-1 0-1.19.48-1.19 1.18V8.4h2.39l-.31 2.42h-2.08V17h4.08c.48 0 .88-.4.88-.88V1.88c0-.48-.4-.88-.88-.88H1.88z" fill="#3C5A96"></path></svg> Sign up using Facebook
+                        </div>
+                        <div class="preferred-login stackexchange-login" data-ga="[&quot;sign up&quot;,&quot;Sign Up Navigation&quot;,&quot;New Post&quot;,null,null]">
+                            <svg aria-hidden="true" class="svg-icon native iconLogoGlyphXSm" width="18" height="18" viewBox="0 0 18 18"><g><path fill="#BCBBBB" d="M14 16v-5h2v7H2v-7h2v5z"></path><path d="M5 15v-2h8v2H5zM12.09.72l4.5 6.06-1.2.9-4.51-6.06 1.21-.9zM8.34 4.3l.97-1.16 5.8 4.83-.96 1.16-5.8-4.83zm-1.9 3.36l.64-1.37 6.85 3.19-.63 1.37-6.85-3.2zM5.4 11.39l.38-1.67 7.42 1.48-.22 1.46-7.58-1.27z" fill="#F48024"></path></g></svg> Sign up using Email and Password
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input name="use-google" class="use-google" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display:none" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" tabindex="106" placeholder="required, but never shown" type="email">
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', 'https%3a%2f%2fstackoverflow.com%2fquestions%2f3138600%2fcorrect-use-of-stat-on-c%23new-answer', 'question_page');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" />
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+
+                            </div>
+
+                                                            <div class="form-submit cbt grid gsx gs4">
+                                        <button id="submit-button" class="grid--cell s-btn s-btn__primary" type="submit" tabindex="120" autocomplete="off">
+Post Your Answer                                        </button>
+                                        <button class="grid--cell s-btn s-btn__danger discard-answer dno">Discard</button>
+                                                                            <p class="privacy-policy-agreement">
+                                            
+
+By clicking "Post Your Answer", you acknowledge that you have read our updated <a href="https://stackoverflow.com/legal/terms-of-service/public" name="tos" target="_blank" class="-link">terms of service</a>, <a href="https://stackoverflow.com/legal/privacy-policy" name="privacy" target="_blank" class="-link">privacy policy</a> and <a href="https://stackoverflow.com/legal/cookie-policy" name="cookie" target="_blank" class="-link">cookie policy</a>, and that your continued use of the website is subject to these policies.
+
+<input name="legalLinksShown" value="1" type="hidden">
+                                        </p>
+                                </div>
+                        </form>
+
+
+
+                        <h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?                            Browse other questions tagged <a href="https://stackoverflow.com/questions/tagged/c" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="https://stackoverflow.com/questions/tagged/file" class="post-tag" title="show questions tagged 'file'" rel="tag">file</a> <a href="https://stackoverflow.com/questions/tagged/posix" class="post-tag" title="show questions tagged 'posix'" rel="tag">posix</a>  or <a href="https://stackoverflow.com/questions/ask">ask your own question</a>.                        </h2>
+            </div>
+        </div>
+                <div id="sidebar" class="show-votes" role="complementary" aria-label="sidebar">
+                            <div class="module question-stats">
+                    <table id="qinfo">
+                        <tbody><tr>
+                            <td>
+                                <p class="label-key">asked</p>
+                            </td>
+                            <td style="padding-left: 10px">
+                                <p class="label-key" title="2010-06-29 07:15:05Z"><b>8 years, 3 months ago</b></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="label-key">viewed</p>
+                            </td>
+
+                            <td style="padding-left: 10px">
+                                <p class="label-key">
+                                    <b>51,125 times</b>
+                                </p>
+                            </td>
+                        </tr>
+                            <tr>
+                                <td>
+                                    <p class="label-key">active</p>
+                                </td>
+                                <td style="padding-left: 10px">
+                                    <p class="label-key"><b><a href="https://stackoverflow.com/questions/3138600/correct-use-of-stat-on-c?lastactivity" class="lastactivity-link" title="2015-10-16 15:23:04Z">2 years, 11 months ago</a></b></p>
+                                </td>
+                            </tr>
+                    </tbody></table>
+                </div>
+            
+            
+<div id="clc-tsb" class="everyonelovesstackoverflow everyoneloves__top-sidebar"></div>
+            <div id="hireme" class="tex2jax_ignore clc-cp-container"><div class="clc-cp-sb--tall"><div class="clc-cp-sb-header red"><a href="https://stackoverflow.com/jobs/companies/osram" data-clc-click="https://clc.stackoverflow.com/click?an=ATgAx_8KurqrRpkw1kgF2JBSRgICBKjIvwEbA7m4B8nzCbGREgMTABCCpJmQOfruXD8AwN09axO20TASeA&amp;cr=297137&amp;ct=0&amp;url=https%3A%2F%2Fstackoverflow.com%2Fjobs%2Fcompanies%2Fosram%3Fmed=clc&amp;sig=61xEkIQfgI7YtA" class="clc-cp-link" target="_blank"></a><div class="clc-cp-sb-header-image"><div class="clc-cp-sb-bgcover"><div class="clc-cp-sb-blur-and-anim" style="background-image: url(https://i.stack.imgur.com/4Yhylm.jpg)"></div></div><div class="clc-cp-sb-openjobs red">We have 2 open jobs ♥</div><div class="clc-cp-sb-logo"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/uGafR.jpg" alt="OSRAM"></div></div><div class="clc-cp-sb-header-title"><p class="clc-cp-sb-company-name">OSRAM</p></div></div><div class="clc-cp-sb-overview"><a href="https://stackoverflow.com/jobs/companies/osram" data-clc-click="https://clc.stackoverflow.com/click?an=ATgAx_8KurqrRpkw1kgF2JBSRgICBKjIvwEbA7m4B8nzCbGREgMTABCCpJmQOfruXD8AwN09axO20TASeA&amp;cr=297137&amp;ct=0&amp;url=https%3A%2F%2Fstackoverflow.com%2Fjobs%2Fcompanies%2Fosram%3Fmed=clc&amp;sig=61xEkIQfgI7YtA" class="clc-cp-link" target="_blank"></a><div><div class="overview-icon industries"><svg viewBox="0 0 12 12"><path d="M6 3.3V1.1H.5v9.8h10.9V3.3H6zM2.7 9.8H1.6V8.7h1.1v1.1zm0-2.2H1.6V6.5h1.1v1.1zm0-2.1H1.6V4.4h1.1v1.1zm0-2.2H1.6V2.2h1.1v1.1zm2.2 6.5H3.8V8.7h1.1v1.1zm0-2.2H3.8V6.5h1.1v1.1zm0-2.1H3.8V4.4h1.1v1.1zm0-2.2H3.8V2.2h1.1v1.1zm5.5 6.5H6V8.7h1.1V7.6H6V6.5h1.1v-1H6V4.4h4.4v5.4zM9.3 5.5H8.2v1.1h1.1V5.5zm0 2.1H8.2v1.1h1.1V7.6z"></path></svg></div><div class="overview-icon company-status"><svg viewBox="0 0 12 12"><path class="st0" d="M9.9 3.3h-2V1.9L7 1.4H5l-1 .5v1.5H2.1a1 1 0 0 0-1 1v5.3c0 .5.4 1 1 1h7.8c.5 0 1-.4 1-1V4.3c0-.5-.5-1-1-1zM5 2.4h2v1H5v-1z"></path></svg></div><div class="overview-icon company-size"><svg viewBox="0 0 12 12"><path d="M8.2 5.5c.9 0 1.6-.7 1.6-1.6s-.7-1.7-1.6-1.7-1.6.7-1.6 1.6.7 1.7 1.6 1.7zm-4.4 0c.9 0 1.6-.7 1.6-1.6s-.6-1.7-1.6-1.7-1.6.7-1.6 1.6.7 1.7 1.6 1.7zm0 1.1C2.6 6.6 0 7.2 0 8.5v1.4h7.6V8.5c.1-1.3-2.5-1.9-3.8-1.9zm4.4 0h-.5c.6.5 1.1 1.1 1.1 1.9v1.4H12V8.5c0-1.3-2.5-1.9-3.8-1.9z"></path></svg></div></div><div><span>Electronics</span><span>Private</span><span>10k+ people</span></div></div><div class="clc-cp-sb-core"><a href="https://stackoverflow.com/jobs/companies/osram" data-clc-click="https://clc.stackoverflow.com/click?an=ATgAx_8KurqrRpkw1kgF2JBSRgICBKjIvwEbA7m4B8nzCbGREgMTABCCpJmQOfruXD8AwN09axO20TASeA&amp;cr=297137&amp;ct=0&amp;url=https%3A%2F%2Fstackoverflow.com%2Fjobs%2Fcompanies%2Fosram%3Fmed=clc&amp;sig=61xEkIQfgI7YtA" class="clc-cp-link" target="_blank"></a><div class="clc-cp-sb-techstack"><p>Our tech stack</p><ul><li class="clc-cp-tag">c</li><li class="clc-cp-tag">c#</li><li class="clc-cp-tag">c++</li><li class="clc-cp-tag">java</li><li class="clc-cp-tag">wpf</li><li class="clc-cp-tag">asp.net</li><li class="clc-cp-tag">sql</li><li class="clc-cp-tag">html</li><li class="clc-cp-tag">javascript</li><li class="clc-cp-tag">oracle</li><li class="clc-cp-tag">jira</li><li class="clc-cp-tag">.net</li><li class="clc-cp-tag">xamarin</li><li class="clc-cp-tag">labview</li><li class="clc-cp-tag">plsql</li><li class="clc-cp-tag">node.js</li><li class="clc-cp-tag">mongodb</li></ul></div><div class="clc-cp-sb-workshere"><p>Meet our team</p><ul><li><div class="clc-cp-sb-workshere-image"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/61303646a612ffa883eb16b9a03ed0f7.png" alt="Charlotte Melzer"></div><div class="clc-cp-sb-workshere-name-and-tags"><span class="clc-cp-sb-workshere-name tall">Charlotte Melzer</span></div></li><li><div class="clc-cp-sb-workshere-image"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/3e3a715ae1e0965b726c6bfcb25b20f4.png" alt="Nikolay Christov"></div><div class="clc-cp-sb-workshere-name-and-tags"><span class="clc-cp-sb-workshere-name tall">Nikolay Christov</span></div></li><li><div class="clc-cp-sb-workshere-image"><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/fe3169ffe2dbb74a943935ca5c4b8b1c.png" alt="Thomas Ebert"></div><div class="clc-cp-sb-workshere-name-and-tags"><span class="clc-cp-sb-workshere-name tall">Thomas Ebert</span></div></li></ul></div></div><div class="clc-cp-sb-learnmore-wrap"><div class="clc-cp-sb-learnmore"><a href="https://stackoverflow.com/jobs/companies/osram" data-clc-click="https://clc.stackoverflow.com/click?an=ATgAx_8KurqrRpkw1kgF2JBSRgICBKjIvwEbA7m4B8nzCbGREgMTABCCpJmQOfruXD8AwN09axO20TASeA&amp;cr=297137&amp;ct=0&amp;url=https%3A%2F%2Fstackoverflow.com%2Fjobs%2Fcompanies%2Fosram%3Fmed=clc&amp;sig=61xEkIQfgI7YtA" class="clc-cp-sb-learnmore-button" target="_blank">Learn more</a></div></div></div><img src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/impression_002.gif" class="impression" style="display: none;"></div>
+<script>;try{(function(a){function b(a){return'string'==typeof a?document.getElementById(a):a}function c(a){return a=b(a),!!a&&'none'===getComputedStyle(a).display}function d(a){return!c(a)}function e(a){return!!a}function f(a){return /^\s*$/.test(b(a).innerHTML)}function g(a){var b=a.style;b.height=b.maxHeight=b.minHeight='auto',b.display='none',[].forEach.call(a.children,g)}function h(a,b){var c;return function(){return a&&(c=a.call(b||this,arguments),a=null),c}}function i(a){var b=document.createElement('script');b.src=a,document.body.appendChild(b)}function j(a){return k([],a)}function k(a,b){return a.push=function(a){return b(),delete this.push,this.push(a)},a}function l(){try{return!new Function('return async()=>{};')}catch(a){return!0}}function m(){return'undefined'!=typeof googletag&&!!googletag.apiReady}function n(){m()||(googletag={cmd:j(A)})}function o(){var a=document.createElement('div');a.className='adsbox',a.id='clc-abd',a.style.position='absolute',a.style.pointerEvents='none',a.innerHTML='&nbsp;',document.body.appendChild(a)}function p(a){var b=a.serviceName,c=a.slot,d=a.lineItemId;try{var e=c.getSlotElementId(),f=[];e||f.push('id=0');var h=document.getElementById(e);if(!e||h?h.hasAttribute('data-clc-stalled')&&f.push('st=1'):f.push('el=0'),0!==f.length)return void B(f.join('&'));-1===x.dh.indexOf(d)?h.setAttribute('data-clc-prefilled','true'):g(h),h.setAttribute('data-clc-ready','true')}catch(a){var i=document.querySelector('#dfp-tsb, #dfp-isb, #clc-tsb');i&&i.setAttribute('data-clc-ready','true'),B('e=1')}}function q(){return Object.keys(F.ids)}function r(a){var b=F.ids[a],c=F.slots[b];'function'==typeof c&&(c=c(a));return{path:'/'+C+'/'+E+'/'+b+'/'+D,sizes:c,zone:b}}function s(a){return!(clc.collapse&&void 0!==clc.collapse[a])||!!clc.collapse[a]}function t(a,b){'dfp-isb'===a&&b.setTargeting('Sidebar',['Inline']),'dfp-tsb'===a&&b.setTargeting('Sidebar',['Right']);var c=r(a),d=c.path,e=c.sizes,f=c.zone,g=googletag.defineSlot(d,e,a);s(f)&&g.setCollapseEmptyDiv(!0,!0),g.addService(b),!1}function u(b){var c=a.dfp&&a.dfp.targeting||{};Object.keys(c).forEach(function(a){b.setTargeting(a,c[a])})}function v(a){var g=a.map(b).filter(e);return{eligible:g.filter(f).filter(d).map(function(a){return a.id}),ineligible:g.filter(c)}}function w(b){if(void 0===b&&(b=q()),!m())return n(),void googletag.cmd.push(function(){return w(b)});var c=v(b),d=c.eligible,e=c.ineligible;if(e.forEach(g),0!==d.length){o(),googletag.destroySlots();var f=googletag.pubads();f.enableSingleRequest(),a.sreEvent||(f.addEventListener('slotRenderEnded',p),a.sreEvent=!0),u(f),d.forEach(function(a){return t(a,f)}),googletag.enableServices(),d.forEach(function(a){googletag.display(a)})}}var x=function(a){for(var b=[],c=1;c<arguments.length;c++)b[c-1]=arguments[c];for(var d,e=0,f=b;e<f.length;e++)for(var g in d=f[e],d)a[g]=d[g];return a}({"lib":"https://cdn.sstatic.net/clc/clc.min.js?v=04d772c81312","style":"https://cdn.sstatic.net/clc/styles/clc.min.css?v=1db48f495ba1","u":"https://clc.stackoverflow.com/markup.js","wa":true,"kt":2000,"tto":true,"h":"clc.stackoverflow.com","allowed":"^(((talent\\.)?stackoverflow)|(blog\\.codinghorror)|(serverfault|askubuntu)|([^\\.]+\\.stackexchange))\\.com$","wv":true,"al":false,"dh":[4385506061,4386578282,4386579572]},a.options||{}),y=h(function(){var a=x.lib;l()&&(a=a.replace(/(\.min)?\.js(\?v=[0-9a-fA-F]+)?$/,'.ie$1.js$2')),i(a)}),z=a.cmd||[];Array.isArray(z)&&(0<z.length?y():k(z,y));var A=h(function(){i('https://www.googletagservices.com/tag/js/gpt.js')}),B=function(a){new Image().src='https://'+x.h+'/stalled.gif?'+a},C='248424177',D=/^\/tags\//.test(location.pathname)||/^\/questions\/tagged\//.test(location.pathname)?'tag-pages':'question-pages',E=location.hostname;var F={slots:{lb:[[728,90]],mlb:[[728,90]],sb:function(a){return'dfp-tsb'===a?[[300,250],[300,600]]:[[300,250]]},"tag-sponsorship":[[730,135]],"mobile-below-question":[[320,50],[300,250]]},ids:{"dfp-tlb":'lb',"dfp-mlb":'mlb',"dfp-tsb":'sb',"dfp-isb":'sb',"dfp-tag":'tag-sponsorship',"dfp-m-aq":'mobile-below-question',"clc-tlb":'lb',"clc-mlb":'mlb',"clc-tsb":'sb'}};(function(){var b=x.al;b&&z.push(function(){return a.load()})})(),n(),a.dfp={load:w},a.options=x,a.cmd=z})(this.clc=this.clc||{})}catch(a){window.console.error(a)}</script>            <script>
+                var clc = clc || {};
+                clc.collapse = { sb: !0,'tag-sponsorship':!0,lb:!1,mlb:!1,'mobile-below-question':!0};
+                clc.cmd = clc.cmd || [];
+                clc.cmd.push(function () { window.clc_request='ArnpckaZMNYIAAAAACjkLwACAAAAAgAAAAAOAAAAfGN8ZmlsZXxwb3NpeHwA4q5mxL4UQZhLPw'; clc.load(); });
+                            </script>
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+
+<div class="spacer">
+	<a href="https://stackoverflow.com/q/49269046?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">1</div>
+	</a>
+	<a href="https://stackoverflow.com/questions/49269046/pointer-without-a-malloc?noredirect=1&amp;lq=1" class="question-hyperlink">pointer without a malloc</a>
+</div>
+<div class="spacer">
+	<a href="https://stackoverflow.com/q/50091777?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">1</div>
+	</a>
+	<a href="https://stackoverflow.com/questions/50091777/printing-information-from-stat2?noredirect=1&amp;lq=1" class="question-hyperlink">printing information from stat(2)</a>
+</div>			</div>
+</div>
+
+                <div class="module sidebar-related">
+                    <h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/1384073?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">2</div></a><a href="https://stackoverflow.com/questions/1384073/problem-with-flushing-input-stream-c?rq=1" class="question-hyperlink">problem with flushing input stream C</a></div><div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/3512434?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">8</div></a><a href="https://stackoverflow.com/questions/3512434/using-struct-stat?rq=1" class="question-hyperlink">Using Struct Stat()</a></div><div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/12544783?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="https://stackoverflow.com/questions/12544783/size-of-struct-not-equal-to-the-size-of-its-content?rq=1" class="question-hyperlink">Size of struct NOT equal to the size of its content</a></div><div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/17512703?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="https://stackoverflow.com/questions/17512703/issue-related-to-message-queue?rq=1" class="question-hyperlink">Issue related to message queue</a></div><div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/20307902?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">0</div></a><a href="https://stackoverflow.com/questions/20307902/c-call-to-stat-erases-a-string-variable?rq=1" class="question-hyperlink">C : call to stat() erases a string variable?</a></div><div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/24707856?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">0</div></a><a href="https://stackoverflow.com/questions/24707856/sizeof-structure-in-c?rq=1" class="question-hyperlink">Sizeof Structure in C</a></div><div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/27235513?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">0</div></a><a href="https://stackoverflow.com/questions/27235513/equivalent-of-write-in-printf-in-the-following-code?rq=1" class="question-hyperlink">Equivalent of write in printf in the following code?</a></div><div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/34724320?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted large">162</div></a><a href="https://stackoverflow.com/questions/34724320/why-does-the-smallest-int-%e2%88%922147483648-have-type-long?rq=1" class="question-hyperlink">Why does the smallest int, −2147483648, have type 'long'?</a></div><div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/40898697?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes default">0</div></a><a href="https://stackoverflow.com/questions/40898697/whats-wrong-with-my-stat-function-in-c-in-linux?rq=1" class="question-hyperlink">what's wrong with my stat() function in C in linux</a></div><div class="spacer js-gps-track"><a href="https://stackoverflow.com/q/41283054?rq=1" title="Vote score (upvotes - downvotes)"><div class="answer-votes answered-accepted default">-3</div></a><a href="https://stackoverflow.com/questions/41283054/c-stat-struct-not-working-properly?rq=1" class="question-hyperlink">C - stat struct not working properly</a></div>
+                    </div>
+                </div>
+
+<div id="hot-network-questions" class="module tex2jax_ignore">
+    <h4>
+        <a href="https://stackexchange.com/questions?tab=hot" class="js-gps-track s-link s-link__inherit" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="https://scifi.stackexchange.com/questions/196477/what-are-these-fantastic-beasts-from-the-crimes-of-grindelwald-trailer" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What are these fantastic beasts from The Crimes of Grindelwald trailer?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-economics" title="Economics Stack Exchange"></div><a href="https://economics.stackexchange.com/questions/24948/car-prices-havent-changed-in-20-years-no-inflation" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:591 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Car prices haven't changed in 20 years, no inflation?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-salesforce" title="Salesforce Stack Exchange"></div><a href="https://salesforce.stackexchange.com/questions/235806/parse-date-time-string-to-apex-datetime" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:459 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Parse date time string to Apex DateTime
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="https://physics.stackexchange.com/questions/434180/does-quantum-mechanics-allow-you-to-simulate-chemical-reactions-in-software" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does quantum mechanics allow you to simulate chemical reactions in software?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-dba" title="Database Administrators Stack Exchange"></div><a href="https://dba.stackexchange.com/questions/219936/sql-server-database-backup-destination-disk-adding-multiple-files-does-it" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:182 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    SQL server database backup - Destination Disk - 
+Adding multiple files - does it duplicate or split backup into the 
+files?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="https://travel.stackexchange.com/questions/123686/brexit-passport-renewal-will-i-need-to-pay-again" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Brexit passport renewal - Will I need to pay again?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="https://workplace.stackexchange.com/questions/120528/how-should-i-approach-a-boss-that-keeps-hiring-temporary-workers-only-to-have-m" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How should I approach a boss that keeps hiring temporary workers, only to have me finish something?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-retrocomputing" title="Retrocomputing Stack Exchange"></div><a href="https://retrocomputing.stackexchange.com/questions/7949/what-is-an-unused-memory-address" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:648 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is an "unused" memory address?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-writing" title="Writing Stack Exchange"></div><a href="https://writing.stackexchange.com/questions/39297/how-to-write-female-characters-with-agency" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:166 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to write female characters with agency?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/133532/how-much-does-defender-wins-effect-challenge-rating-math" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How much does "Defender Wins" effect challenge rating math?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/133483/awarding-encounter-experience-when-enemies-flee-get-intimidated-are-convinced-to" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Awarding encounter experience when enemies flee/get intimidated/are convinced to help
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="https://academia.stackexchange.com/questions/118299/paper-rejected-based-on-one-very-short-wrong-comment" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Paper rejected based on one very short wrong comment
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-movies" title="Movies &amp; TV Stack Exchange"></div><a href="https://movies.stackexchange.com/questions/93073/why-did-the-twilight-zone-not-feature-a-more-diverse-cast" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:367 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why did the Twilight Zone not feature a more diverse cast?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/133423/what-is-pathfinders-relationship-to-dd" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is Pathfinder's relationship to D&amp;D?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-history" title="History Stack Exchange"></div><a href="https://history.stackexchange.com/questions/48634/why-do-western-monotheistic-religions-seem-to-be-so-full-of-conflict-over-dogma" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:324 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do western monotheistic religions seem to be so full of conflict over dogma?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="https://unix.stackexchange.com/questions/475008/command-line-argument-in-awk" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Command line argument in awk
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="https://academia.stackexchange.com/questions/118148/what-to-tell-students-who-want-to-know-how-to-succeed-in-your-class" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What to tell students who want to know how to succeed in your class
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-interpersonal" title="Interpersonal Skills Stack Exchange"></div><a href="https://interpersonal.stackexchange.com/questions/19283/how-to-reduce-the-awkwardness-on-the-way-to-the-bedroom" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:680 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to reduce the awkwardness on the way to the bedroom?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="https://codegolf.stackexchange.com/questions/173869/output-the-anti-clockwise-inward-spiral-of-a-2d-array" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Output the anti-clockwise inward spiral of a 2D array
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="https://rpg.stackexchange.com/questions/133490/what-type-of-stone-do-targets-of-flesh-to-stone-and-petrification-turn-into" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What type of stone do targets of Flesh to Stone, and Petrification, turn into?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-space" title="Space Exploration Stack Exchange"></div><a href="https://space.stackexchange.com/questions/31268/what-eliminates-the-velocity-when-occupants-return-from-iss-to-earth-and-how-mu" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:508 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What eliminates the velocity when occupants return from ISS to earth, and how much?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="https://codegolf.stackexchange.com/questions/173833/can-the-number-be-split-into-powers-of-2" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can the number be split into powers of 2?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="https://tex.stackexchange.com/questions/454970/set-layers-in-pgfplots-polarplot-not-working-as-expected" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    set layers in PGFPLOTS polarplot not working as expected
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="https://english.stackexchange.com/questions/467490/word-for-the-thiefs-key-that-can-unlock-anything" class="js-gps-track question-hyperlink mb0" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Word for the thief's key that can unlock anything
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+
+<div id="feed-link">
+    <a href="https://stackoverflow.com/feeds/question/3138600" title="feed of this question and its answers">
+        <svg aria-hidden="true" class="svg-icon fc-orange-400 iconRss" width="18" height="18" viewBox="0 0 18 18"><path d="M1 3c0-1.1.9-2 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3zm14.5 12C15.5 8.1 9.9 2.5 3 2.5V5a10 10 0 0 1 10 10h2.5zm-5 0A7.5 7.5 0 0 0 3 7.5V10a5 5 0 0 1 5 5h2.5zm-5 0A2.5 2.5 0 0 0 3 12.5V15h2.5z"></path></svg>
+        question feed
+    </a>
+</div>
+        </div>
+    </div>
+<script>StackExchange.ready(function(){$.get('/posts/3138600/ivc/8eb4');});</script>
+<noscript><div><img src="/posts/3138600/ivc/8eb4" class="dno" alt="" width="0" height="0"></div></noscript><div style="display:none" id="prettify-lang">lang-c</div></div>
+
+
+        </div>
+    </div><script src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/clc.js"></script>
+
+    <footer id="footer" class="site-footer js-footer" role="contentinfo">
+        <div class="site-footer--container">
+                <div class="site-footer--logo">
+
+                    
+                    <a href="https://stackoverflow.com/"><svg aria-hidden="true" class="svg-icon native iconLogoGlyphMd" width="32" height="37" viewBox="0 0 32 37"><g><path fill="#BCBBBB" d="M26 33v-9h4v13H0V24h4v9z"></path><path d="M23.1 25.99l.68-2.95-16.1-3.35L7 23l16.1 2.99zM9.1 15.2l15 7 1.4-3-15-7-1.4 3zm4.2-7.4L26 18.4l2.1-2.5L15.4 5.3l-2.1 2.5zM21.5 0l-2.7 2 9.9 13.3 2.7-2L21.5 0zM7 30h16v-3H7v3z" fill="#F48024"></path></g></svg></a>
+                </div>
+            
+            <nav class="site-footer--nav">
+                    <div class="site-footer--col site-footer--col__visible js-footer-col" data-name="default">
+                        <h5 class="-title"><a href="https://stackoverflow.com/" class="js-gps-track" data-gps-track="footer.click({ location: 2, link: 15})">Stack Overflow</a></h5>
+                        <ul class="-list js-primary-footer-links">
+                            <li class="-item"><a href="https://stackoverflow.com/questions" class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 16})">Questions</a></li>
+                                <li class="-item"><a href="https://stackoverflow.com/jobs" class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 17})">Jobs</a></li>
+                                <li class="-item"><a href="https://stackoverflow.com/jobs/directory/developer-jobs" class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 11})">Developer Jobs Directory</a></li>
+                                     <li class="-item"><a href="https://stackoverflow.com/jobs/salary" class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 28})">Salary Calculator</a></li>
+                                                            <li class="-item"><a href="https://stackoverflow.com/help" class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 3 })">Help</a></li>
+                                <li class="-item"><a onclick='StackExchange.switchMobile("on")' class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 12 })">Mobile</a></li>
+                        <li class="-item"><a class="-link" role="button">Disable Responsiveness</a></li></ul>
+                    </div>
+                    <div class="site-footer--col site-footer--col__visible js-footer-col" data-name="default">
+                        <h5 class="-title"><a href="https://www.stackoverflowbusiness.com/" class="js-gps-track" data-gps-track="footer.click({ location: 2, link: 19 })">Products</a></h5>
+                        <ul class="-list">
+                            <li class="-item"><a href="https://stackoverflow.com/teams" class="js-gps-track -link" data-ga="[&quot;teams traffic&quot;,&quot;footer - site nav&quot;,&quot;stackoverflow.com/teams&quot;,null,{&quot;dimension4&quot;:&quot;teams&quot;}]" data-gps-track="footer.click({ location: 2, link: 29 })">Teams</a></li>
+                            <li class="-item"><a href="https://www.stackoverflowbusiness.com/talent" class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 20 })">Talent</a></li>
+                            <li class="-item"><a href="https://www.stackoverflowbusiness.com/advertise" class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 21 })">Engagement</a></li>
+                            <li class="-item"><a href="https://stackoverflow.com/enterprise" class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 22 })">Enterprise</a></li>
+                        </ul>
+                    </div>
+                <div class="site-footer--col site-footer--col__visible js-footer-col" data-name="default">
+                    <h5 class="-title"><a class="js-gps-track" data-gps-track="footer.click({ location: 2, link: 1 })" href="https://stackoverflow.com/company/about">Company</a></h5>
+                    <ul class="-list">
+                            <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 1 })" href="https://stackoverflow.com/company/about">About</a></li>
+                                                <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 27 })" href="https://stackoverflow.com/company/press">Press</a></li>
+                            <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 9 })" href="https://stackoverflow.com/company/work-here">Work Here</a></li>
+                        <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 7 })" href="https://stackoverflow.com/legal">Legal</a></li>
+                        <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 8 })" href="https://stackoverflow.com/legal/privacy-policy">Privacy Policy</a></li>
+                            <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link: 13 })" href="https://stackoverflow.com/company/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="site-footer--col site-footer--categories-nav site-footer--col__visible">
+                    <a href="#" class="site-footer--back js-footer-back"><svg aria-hidden="true" class="svg-icon iconArrowLeftAlt" width="18" height="18" viewBox="0 0 18 18"><path d="M10.58 16L12 14.59 6.4 9 12 3.41 10.57 2l-7 7z"></path></svg></a>
+                    <div>
+                        <h5 class="-title"><a href="https://stackexchange.com/">Stack Exchange<br> Network</a></h5>
+                        <ul class="-list">
+                            <li class="-item"><a href="#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 2, link: 24 })" data-target="Technology">Technology</a></li>
+                            <li class="-item"><a href="#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 2, link: 24 })" data-target="Life / Arts">Life / Arts</a></li>
+                            <li class="-item"><a href="#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 2, link: 24 })" data-target="Culture / Recreation">Culture / Recreation</a></li>
+                            <li class="-item"><a href="#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 2, link: 24 })" data-target="Science">Science</a></li>
+                            <li class="-item"><a href="#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 2, link: 24 })" data-target="Other">Other</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="site-footer--categories">
+                    <div class="site-footer--col site-footer--category js-footer-col" data-name="Technology">
+        <ul class="-list">
+                <li class="-item"><a href="https://stackoverflow.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                <li class="-item"><a href="https://serverfault.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="system and network administrators">Server Fault</a></li>
+                <li class="-item"><a href="https://superuser.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="computer enthusiasts and power users">Super User</a></li>
+                <li class="-item"><a href="https://webapps.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="power users of web applications">Web Applications</a></li>
+                <li class="-item"><a href="https://askubuntu.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                <li class="-item"><a href="https://webmasters.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="pro webmasters">Webmasters</a></li>
+                <li class="-item"><a href="https://gamedev.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional and independent game developers">Game Development</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://tex.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                <li class="-item"><a href="https://softwareengineering.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professionals, academics, and students working within the systems development life cycle">Software Engineering</a></li>
+                <li class="-item"><a href="https://unix.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                <li class="-item"><a href="https://apple.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                <li class="-item"><a href="https://wordpress.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="WordPress developers and administrators">WordPress Development</a></li>
+                <li class="-item"><a href="https://gis.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                <li class="-item"><a href="https://electronics.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://android.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                <li class="-item"><a href="https://security.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="information security professionals">Information Security</a></li>
+                <li class="-item"><a href="https://dba.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                <li class="-item"><a href="https://drupal.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Drupal developers and administrators">Drupal Answers</a></li>
+                <li class="-item"><a href="https://sharepoint.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="SharePoint enthusiasts">SharePoint</a></li>
+                <li class="-item"><a href="https://ux.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="user experience researchers and experts">User Experience</a></li>
+                <li class="-item"><a href="https://mathematica.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of Wolfram Mathematica">Mathematica</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://salesforce.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                <li class="-item"><a href="https://expressionengine.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                <li class="-item"><a href="https://pt.stackoverflow.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="programadores profissionais e entusiastas">Stack Overflow em Português</a></li>
+                <li class="-item"><a href="https://blender.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people who use Blender to create 3D graphics, animations, or games">Blender</a></li>
+                <li class="-item"><a href="https://networkengineering.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="network engineers">Network Engineering</a></li>
+                <li class="-item"><a href="https://crypto.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="software developers, mathematicians and others interested in cryptography">Cryptography</a></li>
+                <li class="-item"><a href="https://codereview.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="peer programmer code reviews">Code Review</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://magento.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of the Magento e-Commerce platform">Magento</a></li>
+                <li class="-item"><a href="https://softwarerecs.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people seeking specific software recommendations">Software Recommendations</a></li>
+                <li class="-item"><a href="https://dsp.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="practitioners of the art and science of signal, image and video processing">Signal Processing</a></li>
+                <li class="-item"><a href="https://emacs.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="those using, extending or developing Emacs">Emacs</a></li>
+                <li class="-item"><a href="https://raspberrypi.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users and developers of hardware and software for Raspberry Pi">Raspberry Pi</a></li>
+                <li class="-item"><a href="https://ru.stackoverflow.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="программистов">Stack Overflow на русском</a></li>
+                <li class="-item"><a href="https://codegolf.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="programming puzzle enthusiasts and code golfers">Programming Puzzles &amp; Code Golf</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://es.stackoverflow.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="programadores y profesionales de la informática">Stack Overflow en español</a></li>
+                <li class="-item"><a href="https://ethereum.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of Ethereum, the decentralized application platform and smart contract enabled blockchain">Ethereum</a></li>
+                <li class="-item"><a href="https://datascience.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Data science professionals, Machine Learning specialists, and those interested in learning more about the field">Data Science</a></li>
+                <li class="-item"><a href="https://arduino.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="developers of open-source hardware and software that is compatible with Arduino">Arduino</a></li>
+                <li class="-item"><a href="https://bitcoin.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Bitcoin crypto-currency enthusiasts">Bitcoin</a></li>
+                            <li class="-item">
+                    <a href="https://stackexchange.com/sites#technology" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 26 })">
+                        <strong>
+                            more (30)
+                        </strong>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="site-footer--col site-footer--category js-footer-col" data-name="Life / Arts">
+        <ul class="-list">
+                <li class="-item"><a href="https://photo.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                <li class="-item"><a href="https://scifi.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                <li class="-item"><a href="https://graphicdesign.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                <li class="-item"><a href="https://movies.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                <li class="-item"><a href="https://music.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="musicians, students, and enthusiasts">Music: Practice &amp; Theory</a></li>
+                <li class="-item"><a href="https://worldbuilding.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="writers/artists using science, geography and culture to construct imaginary worlds and settings">Worldbuilding</a></li>
+                <li class="-item"><a href="https://cooking.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Life / Arts"><ul class="-list">
+                <li class="-item"><a href="https://diy.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="contractors and serious DIYers">Home Improvement</a></li>
+                <li class="-item"><a href="https://money.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                <li class="-item"><a href="https://academia.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="academics and those enrolled in higher education">Academia</a></li>
+                <li class="-item"><a href="https://law.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="legal professionals, students, and others with experience or interest in law">Law</a></li>
+                            <li class="-item">
+                    <a href="https://stackexchange.com/sites#lifearts" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 26 })">
+                        <strong>
+                            more (15)
+                        </strong>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="site-footer--col site-footer--category js-footer-col" data-name="Culture / Recreation">
+        <ul class="-list">
+                <li class="-item"><a href="https://english.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                <li class="-item"><a href="https://skeptics.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="scientific skepticism">Skeptics</a></li>
+                <li class="-item"><a href="https://judaism.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                <li class="-item"><a href="https://travel.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="road warriors and seasoned travelers">Travel</a></li>
+                <li class="-item"><a href="https://christianity.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                <li class="-item"><a href="https://ell.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="speakers of other languages learning English">English Language Learners</a></li>
+                <li class="-item"><a href="https://japanese.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="students, teachers, and linguists wanting to discuss the finer points of the Japanese language">Japanese Language</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Culture / Recreation"><ul class="-list">
+                <li class="-item"><a href="https://gaming.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                <li class="-item"><a href="https://bicycles.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                <li class="-item"><a href="https://rpg.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                <li class="-item"><a href="https://anime.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="anime and manga fans">Anime &amp; Manga</a></li>
+                <li class="-item"><a href="https://puzzling.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="those who create, solve, and study puzzles">Puzzling</a></li>
+                <li class="-item"><a href="https://mechanics.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="mechanics and DIY enthusiast owners of cars, trucks, and motorcycles">Motor Vehicle Maintenance &amp; Repair</a></li>
+                            <li class="-item">
+                    <a href="https://stackexchange.com/sites#culturerecreation" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 26 })">
+                        <strong>
+                            more (33)
+                        </strong>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="site-footer--col site-footer--category js-footer-col" data-name="Science">
+        <ul class="-list">
+                <li class="-item"><a href="https://mathoverflow.net/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional mathematicians">MathOverflow</a></li>
+                <li class="-item"><a href="https://math.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                <li class="-item"><a href="https://stats.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                <li class="-item"><a href="https://cstheory.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                <li class="-item"><a href="https://physics.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="active researchers, academics and students of physics">Physics</a></li>
+                <li class="-item"><a href="https://chemistry.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="scientists, academics, teachers, and students in the field of chemistry">Chemistry</a></li>
+                <li class="-item"><a href="https://biology.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="biology researchers, academics, and students">Biology</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Science"><ul class="-list">
+                <li class="-item"><a href="https://cs.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="students, researchers and practitioners of computer science">Computer Science</a></li>
+                <li class="-item"><a href="https://philosophy.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="those interested in the study of the fundamental nature of knowledge, reality, and existence">Philosophy</a></li>
+                            <li class="-item">
+                    <a href="https://stackexchange.com/sites#science" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 26 })">
+                        <strong>
+                            more (10)
+                        </strong>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="site-footer--col site-footer--category js-footer-col" data-name="Other">
+        <ul class="-list">
+                <li class="-item"><a href="https://meta.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                <li class="-item"><a href="https://stackapps.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                <li class="-item"><a href="https://api.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="programmatic interaction with Stack Exchange sites">API</a></li>
+                <li class="-item"><a href="https://data.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="querying Stack Exchange data using SQL">Data</a></li>
+                <li class="-item"><a href="https://area51.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                    </ul>
+    </div>
+                </div>
+            </nav>
+            <div class="site-footer--copyright fs-fine">
+                <ul class="-list">
+                    <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 2, link:4 })" href="https://stackoverflow.blog/?blb=1">Blog</a></li>
+                    <li class="-item"><a href="https://www.facebook.com/officialstackoverflow/" class="-link">Facebook</a></li>
+                    <li class="-item"><a href="https://twitter.com/stackoverflow" class="-link">Twitter</a></li>
+                    <li class="-item"><a href="https://linkedin.com/company/stack-overflow" class="-link">LinkedIn</a></li>
+                </ul>
+
+                <p class="mt-auto mb24">
+site design / logo © 2018 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a>
+                            with <a href="https://stackoverflow.blog/2009/06/25/attribution-required/" rel="license">attribution required</a>.
+                    <span id="svnrev">rev&nbsp;2018.10.12.31903</span>
+                </p>
+            </div>
+        </div>
+
+            </footer>
+            <script>StackExchange.ready(function () { StackExchange.responsiveness.addSwitcher(); })</script>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled
+            <img src="https://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno">
+        </div>
+    </noscript>
+
+<script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function() { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            StackExchange.ready(function () {
+
+                StackExchange.ga.init({
+                    sendTitles: true,
+                    tracker: window.ga,
+                    trackingCodes: [
+                        'UA-108242619-1'
+                    ]
+                });
+
+
+
+                    StackExchange.ga.setDimension('dimension2', '|c|file|posix|');
+
+                    StackExchange.ga.setDimension('dimension3', 'Questions/Show');
+
+
+                StackExchange.ga.trackPageView();
+            });
+            
+/**/
+            
+            var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+            (function() {
+                var ssl = 'https:' == document.location.protocol,
+                    s = document.getElementsByTagName('script')[0],
+                    qc = document.createElement('script');
+                 qc.async = true;
+                    qc.src = (ssl ? 'https://secure' : 'http://edge') + '.quantserve.com/quant.js';
+                    s.parentNode.insertBefore(qc, s);
+                    _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+/**/
+                 var sc = document.createElement('script');
+                    sc.async = true;
+                    sc.src = (ssl ? 'https://sb' : 'http://b') + '.scorecardresearch.com/beacon.js';
+                    s.parentNode.insertBefore(sc, s);
+                    _comscore.push({ c1: "2", c2: "17440561" });
+            })();
+            
+
+</script>
+            
+    
+    
+<script src="file%20-%20Correct%20use%20of%20Stat%20on%20C%20-%20Stack%20Overflow_fichiers/markup.js"></script></body></html>

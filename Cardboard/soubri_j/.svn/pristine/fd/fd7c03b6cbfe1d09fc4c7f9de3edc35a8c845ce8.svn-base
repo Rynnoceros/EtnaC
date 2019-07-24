@@ -1,0 +1,44 @@
+/*
+** ETNA PROJECT, 18/10/2018 by soubri_j
+** character.h
+** File description:
+**      Header containing all functions and typedef to manage a character in
+**      Cardboard Pulley Training.
+*/
+
+#ifndef __CHARACTER_H__
+# define __CHARACTER_H__
+#include "libmy.h"
+#include "position.h"
+
+/**** Variables ****/
+#define MOVEMENT_SPEED 1;
+#define MOVEMENT_DIRECTION ((char *[]) { "up", "down", "left", "right" })
+#define ORIENTATION ((char *[]) { "north", "east", "south", "west" })
+#define CHARACTER_DISPLAY ((char []) { 'P', 'G', 'C', 'D' })
+#define NB_CHARACTERS_TYPE 4
+#define NB_DIRECTIONS 4
+
+/**** Structures and enumerations ****/
+typedef enum {
+    E_PLAYER,
+    E_GUARD,
+    E_CAMERA,
+    E_DOG
+} character_type_e;
+
+typedef struct {
+    int id;
+    character_type_e type;
+    cardinal_point_e azimut;
+    int coord[2];
+} character_t;
+
+/**** Functions declarations ****/
+int character_move(character_t *target, direction_e dir);
+int character_look(character_t *target, cardinal_point_e cardinal_point);
+void print_move(int id, direction_e dir);
+void print_character_orientation(int id, cardinal_point_e cardinal_point);
+character_t *new_character(int id, character_type_e type, 
+                           cardinal_point_e looks, int coord[2]);
+#endif // !__CHARACTER_H__

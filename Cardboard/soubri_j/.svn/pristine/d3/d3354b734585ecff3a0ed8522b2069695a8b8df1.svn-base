@@ -1,0 +1,81 @@
+/*
+** ETNA PROJECT, 18/10/2018 by soubri_j
+** character.c
+** File description:
+**      File containing all functions related to character actions.
+*/
+#include "not_rp1.h"
+
+/*
+    Function to move a character in a direction.
+    The function prints out where the target has moved.
+    Params :
+        target : the character to move
+        dir : the direction where to move the character
+    Returns :
+        0 if ok. 1 otherwise.
+*/
+int character_move(character_t *target, direction_e dir)
+{
+    if (target != NULL) {
+        switch (dir) {
+            case E_FORWARD:
+                target->coord[E_Y] -= MOVEMENT_SPEED;
+                break;
+            case E_BACKWARD:
+                target->coord[E_Y] += MOVEMENT_SPEED;
+                break;
+            case E_LEFT:
+                target->coord[E_X] -= MOVEMENT_SPEED;
+                break;
+            case E_RIGHT:
+                target->coord[E_X] += MOVEMENT_SPEED;
+                break;
+            default:
+                return 1;
+        }
+        print_move(target->id, dir);
+    }
+    return 0;
+}
+
+/* 
+    Function used to print character's move
+*/
+void print_move(int id, direction_e dir)
+{
+    my_putchar('[');
+    my_putnbr(id);
+    my_putstr("] moves ");
+    my_putstr(MOVEMENT_DIRECTION[dir]);
+    my_putstr(".\n");
+}
+
+/*
+    Function to orient a character in a direction.
+    Params :
+        target : the character to orient
+        cardinal_point : the orientation to give to the character
+    Returns :
+        0 if ok, 1 otherwise
+*/
+int character_look(character_t *target, cardinal_point_e cardinal_point)
+{
+    if (target != NULL) {
+        target->azimut = cardinal_point;
+        print_character_orientation(target->id, target->azimut);
+    }
+    return 0;
+}
+
+/* 
+    Function used to print character's orientation
+*/
+void print_character_orientation(int id, cardinal_point_e cardinal_point)
+{
+    my_putchar('[');
+    my_putnbr(id);
+    my_putstr("] looks ");
+    my_putstr(ORIENTATION[cardinal_point/90]);
+    my_putstr(".\n");
+}

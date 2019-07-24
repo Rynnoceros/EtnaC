@@ -1,0 +1,37 @@
+/*
+** ETNA PROJECT, 19/01/2019 by soubri_j/martin_m
+** check.c
+** File description: 
+**      This file contains check methods for malloc program.
+*/
+
+#include "malloc.h"
+
+/*
+    Method used to check pointer validity
+    Parameters :
+        ptr : The pointer to check
+        lowest_adress : The lowest address in memory
+    Returns :
+        0 if pointer is not valid, 1 otherwise.
+*/
+int check_pointer(void *ptr, void *lowest_address)
+{
+    int iReturn = 0;
+    block_t *block = NULL;
+
+    if (ptr != NULL) {
+        if (lowest_address != NULL && ptr < lowest_address) {
+            printf("%s\n", error_pointer_too_low);
+        } else {
+            block = (((block_t *)ptr) - 1);
+            if (block->magic != magic_number) {
+                printf("%s\n", error_wrong_pointer);
+            } else {
+                iReturn = 1;
+            }
+        }
+    }
+
+    return iReturn;
+}

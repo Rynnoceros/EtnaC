@@ -1,0 +1,30 @@
+/*
+** ETNA PROJECT, 18/10/2018 by soubri_j
+** position.h
+** File description:
+**      Header containing all functions and typedef for position.
+*/
+
+#ifndef __POSITION_H__
+# define __POSITION_H__
+
+typedef enum {
+    E_FORWARD,
+    E_BACKWARD,
+    E_LEFT,
+    E_RIGHT
+} direction_e;
+
+typedef enum {
+    E_NORTH = 0,
+    E_EAST = 90,
+    E_SOUTH = 180,
+    E_WEST = 270
+} cardinal_point_e;
+
+typedef enum {
+    E_X = 0,
+    E_Y = 1
+} coord_e;
+
+#endif

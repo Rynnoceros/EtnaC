@@ -1,0 +1,129 @@
+/*
+** ETNA PROJECT, 12/11/2018 by soubri_j
+** sdl_effects.c
+** File description: 
+**      This file contains all sdl effects.
+*/
+
+#include "ftl.h"
+#include <SDL2/SDL.h>
+#include <SDL2_mixer/SDL_mixer.h> 
+
+/*
+    Function used to play explosion effect
+    Params : 
+        the_game : Game parameters
+        rect : The rectangle where to play the explosion
+        ship : The player's ship
+*/
+void play_explosion(play_screen_t *the_game, SDL_Rect *rect, ship_t *ship)
+{
+    play_sound("explosion");
+    SDL_BlitSurface(the_game->explosion_surface, NULL, 
+        the_game->screen_surface, rect);
+    SDL_UpdateWindowSurface(the_game->window);
+    SDL_Delay(1000);
+    SDL_BlitSurface(the_game->current_sector, NULL, 
+        the_game->screen_surface, NULL);
+    if (ship != NULL) {
+        SDL_BlitSurface(the_game->ship_surface, NULL, 
+            the_game->screen_surface, &the_game->ship_rect);
+    }
+    SDL_UpdateWindowSurface(the_game->window);
+}
+
+/*
+    Function used to load a Wav sound
+    Params : 
+        name : Sound name
+        sound_path : Sound flile path
+    Returns :
+        The loaded sound if ok, NULL otherwise
+*/
+audio_t *load_sound(const char *name, const char *sound_path)
+{
+    audio_t *sound = NULL;
+    SDL_AudioSpec *spec = NULL;
+
+    if (sound_path != NULL) {
+        sound = malloc(sizeof(*sound));
+        if (sound != NULL) {
+            sound->name = my_strdup(name);
+            spec = SDL_LoadWAV(sound_path, &sound->wav_spec, &sound->wav_buffer,
+                                &sound->wav_length);
+            if (spec == NULL) {
+                my_putstr_color(ko_color, "Can't load sound ");
+                my_putstr_color(ko_color, sound_path);
+                my_putchar('\n');
+            } else {
+                sound->audio_id = SDL_OpenAudioDevice(NULL, 0, &sound->wav_spec, NULL, 0);
+            }
+        }
+    }
+    return sound;
+}
+
+/*
+    Function used to free sounds
+    Params : 
+        the_game : Game parameters
+*/
+void free_sounds(play_screen_t *the_game)
+{
+    if (the_game != NULL) {
+        for (int i = 0; i < 0; ++i) {
+            if (the_game->sound_lib[i] != NULL) {
+                SDL_FreeWAV(the_game->sound_lib[i]->wav_buffer);
+            }
+        }
+    }
+}
+
+/*
+    Function used to load sounds of the game
+    Params :
+        the_game : The game to load sounds
+*/
+void load_sound_lib(play_screen_t *the_game)
+{
+    if (the_game != NULL) {
+        the_game->sound_lib[0] = load_sound("explosion", "sounds/explosion_x.wav");
+        the_game->sound_lib[1] = load_sound("sonar", "sounds/sonar.wav");
+        the_game->sound_lib[2] = load_sound("control", "sounds/control.wav");
+        the_game->sound_lib[3] = load_sound("getbonus", "sounds/getbonus.wav");;
+        the_game->sound_lib[4] = load_sound("jump", "sounds/jump.wav");;
+        the_game->sound_lib[5] = load_sound("repair", "sounds/repair.wav");
+        the_game->sound_lib[6] = load_sound("attack", "sounds/attack.wav");
+        the_game->sound_lib[7] = NULL;
+        the_game->sound_lib[8] = NULL;
+        the_game->sound_lib[9] = NULL;
+    }
+    my_putstr_color(ok_color, "Sounds loaded\n");
+}
+
+/*
+    Function used to play a preloaded sound finding it by its name
+    Params : 
+        the_game : Game parameters
+        sound_name : Sound name to play
+*/
+void play_sound(const char *sound_name)
+{
+    play_screen_t *the_game = NULL;
+    the_game = get_game();
+
+    if (the_game != NULL)
+    {
+        for (int i = 0; i < 10; ++i) {
+            if (the_game->sound_lib[i] != NULL) {
+                if (my_strcmp(the_game->sound_lib[i]->name, sound_name) == 0) {
+                    SDL_QueueAudio(the_game->sound_lib[i]->audio_id, 
+                        the_game->sound_lib[i]->wav_buffer, 
+                        the_game->sound_lib[i]->wav_length);
+                    SDL_PauseAudioDevice(the_game->sound_lib[i]->audio_id, 0);
+                    break;          
+                }
+            }
+        }
+    }
+}

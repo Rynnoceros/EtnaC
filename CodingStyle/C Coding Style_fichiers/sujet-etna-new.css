@@ -1,0 +1,146 @@
+@font-face {
+	font-family: "Inconsolata-Bold";
+	src: url( "Inconsolata-Bold.ttf" );
+}
+
+@font-face {
+	font-family: "Inconsolata";
+	src: url( "Inconsolata-Regular.ttf" );
+}
+
+html, body { padding: 0; margin: 0; }
+
+body {
+	margin: 15px;
+	background-color: #f5f3f3;
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-size: 15px;
+	color: #000;
+}
+
+h1, h2, h3, h4, h5 {
+	display: inline-block;
+	font-weight: bold;
+	font-size: inherit;
+}
+
+ul { margin: 0 0 15px; }
+div > ul,
+div > ol { padding: 0; }
+li { line-height: 150%; }
+ul, li { list-style-type: none; }
+li::before {
+	font-family: "FontAwesome";
+	content: "\f111";
+	margin-right: 1.5em;
+	font-size: 8px;
+	vertical-align: middle;
+	color: var( --panel-color );
+	list-style-type: none; /* A supprimer quand les sujets seront tous syntaxiquement correct */
+}
+
+p {
+	margin: 0;
+	margin-bottom: 15px;
+}
+
+code {
+	display: inline-block;
+	padding: 0 .2em;
+	border-radius: 4px;
+	font-family: "Inconsolata";
+	font-weight: bold;
+	background-color: #eee;
+}
+
+pre {
+	border-left: 5px solid #3f87a6;
+	font-family: "Inconsolata";
+	background-color: #eee !important;
+}
+
+table {
+	overflow: hidden;
+	width: 100%;
+	margin: 1em 0;
+	border-spacing: 1px;
+	box-sizing: border-box;
+	color: inherit;
+}
+tr th:first-child,
+tr td:first-child {
+	white-space: nowrap;
+}
+tr {
+	padding: 0;
+	background-color: #f1f1f1;
+}
+tr:nth-child( 2n ) {
+	background-color: #e6e6e6;
+}
+td, th {
+	padding: .7em 1em;
+}
+td:last-child {
+	width: 100%;
+}
+
+.panel {
+	--panel-color: #4e4e4e;
+
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+	border-radius: 4px;
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+	.panel-heading {
+		padding: .8em;
+		border-top-right-radius: 4px;
+		border-top-left-radius: 4px;
+		font-weight: bold;
+		font-size: 1.8em;
+		background-color: var( --panel-color );
+		color:#fff;
+	}
+		.panel-heading::before {
+			font-family: "FontAwesome";
+			margin-right: 15px;
+			font-weight: normal;
+		}
+	.panel-body {
+		padding: 15px;
+		border-radius: 4px;
+		background-color: #fff;
+	}
+
+	.panel-module .panel-heading {
+		background: url( "banniere.png" ) center right no-repeat;
+		background-size: 500px;
+		background-color: var( --panel-color );
+	}
+
+	.panel-module    { --panel-color: #337ab7; }
+	.panel-project   { --panel-color: #22ad54; }
+	.panel-warning   { --panel-color: #ff9e49; }
+	.panel-forbidden { --panel-color: #fd6767; }
+	.panel-info      { --panel-color: #6aabcc; }
+
+	.panel-warning .panel-heading,
+	.panel-forbidden .panel-heading,
+	.panel-info .panel-heading { font-size: 1.5em; }
+
+.panel-module .panel-heading::before 	{ content: "\f085"; }
+.panel-project .panel-heading::before 	{ content: "\f02d"; }
+.panel-warning .panel-heading::before 	{ content: "\f071"; }
+.panel-forbidden .panel-heading::before { content: "\f05e"; }
+.panel-info .panel-heading::before 		{ content: "\f05a"; }
+.panel-exercice .panel-heading::before 	{ content: "\f15c"; }
+.panel-question .panel-heading::before 	{ content: "\f059"; }
+.panel-example .panel-heading::before 	{ content: "\f1c9"; }
+.panel-bonus .panel-heading::before 	{ content: "\f055"; }
+.panel-objective .panel-heading::before { content: "\f140"; }
+
+.cs-major::before { font-family: "FontAwesome"; content:"\f0aa"; color:#fd6767; margin-right: .2em; }
+.cs-minor::before { font-family: "FontAwesome"; content:"\f0ab"; color:#22ad54; margin-right: .2em; }
+.cs-info::before  { font-family: "FontAwesome"; content:"\f05a"; color:#6aabcc; margin-right: .2em; }
